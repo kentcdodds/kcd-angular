@@ -1,0 +1,2 @@
+[Lo-Dash](http://lodash.com) is an amazing JavaScript utility library. It's a fork of [Underscore.js](http://underscorejs.org/)
+with a focus on performance. It also provides a lot of other goodies over Underscore. I don't have a project without lodash.

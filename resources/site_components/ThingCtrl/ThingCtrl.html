@@ -1,0 +1,20 @@
+<div>
+  <h4>{{::thing.name}} <small>{{::thing.type}}</small></h4>
+  <div ng-if="::thing.dependencies.length">Dependencies: <span ng-bind-html="::thing.dependencies | linkifyDependencies"></span></div>
+
+  <div>
+    <h5>Docs</h5>
+    <div ng-bind-html="::(thing.docs || '{{thing.name}} is not documented...') | kcdMdToHtml" kcd-highlight-code></div>
+  </div>
+
+  <hr />
+
+  <div ng-if="::!thing.libraryLink">
+    <h5>Code <kcd-clipboard-copy text="{{::thing.code}}"></kcd-clipboard-copy></h5>
+    <div ng-bind-html="::('```javascript\n' + thing.code + '\n```') | kcdMdToHtml" kcd-highlight-code></div>
+  </div>
+  <div ng-if="::thing.libraryLink">
+    <h5>Link</h5>
+    <a ng-href="{{::thing.libraryLink}}">Click here</a> to go to the {{::thing.name}} website.
+  </div>
+</div>

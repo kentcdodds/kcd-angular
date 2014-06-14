@@ -1,4 +1,3 @@
-kcd-angular
-===========
+# kcd-angular
 
-A repo for all of my useful Angular stuff
+A repo to hold the`kcd` angular module. Things I made that I think are useful. 

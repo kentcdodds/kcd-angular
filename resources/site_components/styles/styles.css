@@ -1,0 +1,42 @@
+
+/* line 32 : /Users/kentcdodds/Developer/kcd-angular/resources/site_components/MainCtrl/MainCtrl.styl */
+
+/* line 1 : /Users/kentcdodds/Developer/kcd-angular/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
+
+/* line 1 : /Users/kentcdodds/Developer/kcd-angular/resources/site_components/MainCtrl/MainCtrl.styl */
+
+/* line 2 : /Users/kentcdodds/Developer/kcd-angular/resources/site_components/MainCtrl/MainCtrl.styl */
+.main-ctrl .title{text-align:center;}
+/* line 4 : /Users/kentcdodds/Developer/kcd-angular/resources/site_components/MainCtrl/MainCtrl.styl */
+.main-ctrl .title h1{display:inline-block;cursor:pointer}
+/* line 7 : /Users/kentcdodds/Developer/kcd-angular/resources/site_components/MainCtrl/MainCtrl.styl */
+.main-ctrl .group-label{display:inline-block}
+/* line 10 : /Users/kentcdodds/Developer/kcd-angular/resources/site_components/MainCtrl/MainCtrl.styl */
+.main-ctrl .things-view-container{position:relative;}
+/* line 12 : /Users/kentcdodds/Developer/kcd-angular/resources/site_components/MainCtrl/MainCtrl.styl */
+.main-ctrl .things-view-container [ui-view]{position:absolute;width:100%;margin-bottom:100px;}
+/* line 16 : /Users/kentcdodds/Developer/kcd-angular/resources/site_components/MainCtrl/MainCtrl.styl */
+.main-ctrl .things-view-container [ui-view].ng-enter,.main-ctrl .things-view-container [ui-view].ng-leave{top:0;opacity:0;transition:all .3s ease-in-out}
+/* line 20 : /Users/kentcdodds/Developer/kcd-angular/resources/site_components/MainCtrl/MainCtrl.styl */
+.main-ctrl .things-view-container [ui-view].ng-enter{opacity:0;top:40px}
+/* line 23 : /Users/kentcdodds/Developer/kcd-angular/resources/site_components/MainCtrl/MainCtrl.styl */
+.main-ctrl .things-view-container [ui-view].ng-enter-active{top:0;opacity:1}
+/* line 26 : /Users/kentcdodds/Developer/kcd-angular/resources/site_components/MainCtrl/MainCtrl.styl */
+.main-ctrl .things-view-container [ui-view].ng-leave{top:0;opacity:1}
+/* line 29 : /Users/kentcdodds/Developer/kcd-angular/resources/site_components/MainCtrl/MainCtrl.styl */
+.main-ctrl .things-view-container [ui-view].ng-leave-active{opacity:0;top:30px}
+
+/* line 32 : /Users/kentcdodds/Developer/kcd-angular/resources/site_components/stylus/main.styl */
+
+/* line 1 : /Users/kentcdodds/Developer/kcd-angular/node_modules/grunt-contrib-stylus/node_modules/stylus/lib/functions/index.styl */
+
+/* line 1 : /Users/kentcdodds/Developer/kcd-angular/resources/site_components/stylus/main.styl */
+#wrap{margin:0 80px 0 40px}
+/* line 4 : /Users/kentcdodds/Developer/kcd-angular/resources/site_components/stylus/main.styl */
+#footer{background-color:#f5f5f5;height:40px;text-align:center;padding:10px;position:fixed;bottom:0;width:100%}
+/* line 14 : /Users/kentcdodds/Developer/kcd-angular/resources/site_components/stylus/main.styl */
+pre{word-break:normal;word-wrap:normal;}
+/* line 17 : /Users/kentcdodds/Developer/kcd-angular/resources/site_components/stylus/main.styl */
+pre code{white-space:pre}
+/* line 20 : /Users/kentcdodds/Developer/kcd-angular/resources/site_components/stylus/main.styl */
+.popover{width:400px}

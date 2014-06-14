@@ -1,0 +1,2 @@
+Just put this on an element and it will find all of it's children `code` elements in a `pre` and highlight it using
+`highlight.js`. Because there can be a race condition, I have a timeout in the logic of the link function.

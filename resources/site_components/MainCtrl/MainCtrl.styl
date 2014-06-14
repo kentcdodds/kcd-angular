@@ -1,0 +1,31 @@
+.main-ctrl
+  .title
+    text-align center
+    h1
+      display inline-block
+      cursor pointer
+  .group-label
+    display inline-block
+  /* ui-view animation */
+  .things-view-container
+    position relative
+    [ui-view]
+      position absolute
+      width 100%
+      margin-bottom 100px
+      &.ng-enter, &.ng-leave
+        top 0
+        opacity 0
+        transition all .3s ease-in-out
+      &.ng-enter
+        opacity 0
+        top 40px
+      &.ng-enter-active
+        top 0
+        opacity 1
+      &.ng-leave
+        top 0
+        opacity 1
+      &.ng-leave-active
+        opacity 0
+        top 30px
