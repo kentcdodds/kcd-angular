@@ -32,20 +32,28 @@
           return AngularThingsGetter.getThing(thingName);
         },
         thingDocs: function($http, thing) {
-          if (thing.docs) return thing.docs; // it's already been set
+          if (thing.docs) { // it's already been set
+            return thing.docs;
+          }
 
           return $http.get(thing.docsPath).then(function success(response) {
-            return thing.docs = response.data;
+            thing.docs = response.data;
+            return thing.docs;
           }, function error(err) {
             return 'Error loading docs';
           });
         },
         thingCode: function($http, thing) {
-          if (thing.libraryLink) return null; // we're not showing library code
-          if (thing.code) return thing.code; // it's already been set
+          if (thing.libraryLink) { // we're not showing library code
+            return null;
+          }
+          if (thing.code) { // it's already been set
+            return thing.code;
+          }
 
           return $http.get(thing.codePath).then(function success(response) {
-            return thing.code = response.data;
+            thing.code = response.data;
+            return thing.code;
           }, function error(err) {
             return 'Error loading code';
           });

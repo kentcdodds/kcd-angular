@@ -41,7 +41,7 @@ angular.module('kcd.site').factory('AngularThingsGetter', function(_) {
   function getGetterThingsOfType(type) {
     return function() {
       return getThingsOfType(type);
-    }
+    };
   }
 
   function getThingsOfType(type) {
@@ -83,7 +83,7 @@ angular.module('kcd.site').factory('AngularThingsGetter', function(_) {
     if(result === null) {
       result = [];
     }
-    return result
+    return result;
   }
 
   function getFixedName(type, name) {

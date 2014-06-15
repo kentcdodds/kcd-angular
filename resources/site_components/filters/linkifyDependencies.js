@@ -16,5 +16,5 @@ angular.module('kcd.site').filter('linkifyDependencies', function(_, $sce, Angul
       thingsText.push('<a href="' + href + '">' + content + '</a>');
     });
     return $sce.trustAsHtml(thingsText.join(', '));
-  }
+  };
 });

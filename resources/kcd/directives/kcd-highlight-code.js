@@ -24,5 +24,5 @@ angular.module('kcd.directives').directive('kcdHighlightCode', function(hljs, $t
       }
     }
     !attemptHighlight() && waitOnHighlight();
-  }
+  };
 });
