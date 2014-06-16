@@ -28,6 +28,7 @@ module.exports = function(env) {
       bc + 'lodash/dist/lodash.js',
       bc + 'toastr/toastr.min.js',
       bc + 'marked/lib/marked.js',
+      bc + 'moment/moment.js',
       nbc + 'highlight.js/highlight.pack.js',
 
       // angular core team stuff
