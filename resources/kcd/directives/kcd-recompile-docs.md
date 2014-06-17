@@ -17,7 +17,7 @@ Usage:
 
 ```html
 <div ng-repeat="thing in ::things" kcd-recompile="recompile.things">
-  <img ng-src={{::thing.getImage()>
+  <img ng-src="{{::thing.getImage()}}">
   <span>{{::thing.name}}</span>
 </div>
 ```
