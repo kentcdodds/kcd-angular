@@ -10,4 +10,5 @@
   addConstant('_');
   addConstant('marked');
   addConstant('hljs');
+  addConstant('moment');
 })();

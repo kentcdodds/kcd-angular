@@ -7,8 +7,10 @@ angular.module('kcd.site').factory('AngularThingsGetter', function(_) {
   var libraryLinks = {
     _: 'http://lodash.com',
     marked: 'https://github.com/chjj/marked',
-    hljs: 'http://highlightjs.org/'
+    hljs: 'http://highlightjs.org/',
+    moment: 'http://momentjs.com/'
   };
+  var featured = ['kcd-recompile', 'kcd-custom-validation', 'kcdDynamicFilter'];
 
   var thingMap = {
     filters: null
@@ -72,7 +74,8 @@ angular.module('kcd.site').factory('AngularThingsGetter', function(_) {
         docsPath: filePath + '-docs.md',
         dependencies: type === 'constant' ? [] : getDependencies(definition),
         codePath: filePath + '.js',
-        libraryLink: libraryLinks[name]
+        libraryLink: libraryLinks[name],
+        isFeatured: _.contains(featured, name)
       };
     });
   }
