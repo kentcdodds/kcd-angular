@@ -72,6 +72,7 @@ angular.module('kcd.site').factory('AngularThingsGetter', function(_) {
         name: name,
         type: type,
         docsPath: filePath + '-docs.md',
+        examplePath: filePath + '-example.html',
         dependencies: type === 'constant' ? [] : getDependencies(definition),
         codePath: filePath + '.js',
         libraryLink: libraryLinks[name],

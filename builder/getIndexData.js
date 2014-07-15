@@ -39,7 +39,8 @@ module.exports = function(env) {
       bc + 'angular-bootstrap/ui-bootstrap-tpls.js',
 
       // other angular mods
-      bc + 'angularjs-scope.safeapply/src/Scope.SafeApply.min.js'
+      bc + 'angularjs-scope.safeapply/src/Scope.SafeApply.min.js',
+      nbc + 'ng-docs.js'
     ],
     // parakeet stuff
     // kcd components first
