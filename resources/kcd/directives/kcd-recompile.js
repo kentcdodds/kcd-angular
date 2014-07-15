@@ -2,7 +2,7 @@ angular.module('kcd.directives').directive('kcdRecompile', function($compile, $p
   'use strict';
 
   return {
-    scope: true, // required to be able to clear watchers
+    scope: true, // required to be able to clear watchers safely
     compile: function(el) {
       var template = el.html();
       return function link(scope, $el, attrs) {

@@ -1,4 +1,3 @@
-var fs = require('fs');
 var _ = require('lodash-node');
 var glob = require('glob');
 
@@ -18,9 +17,9 @@ module.exports = function(env) {
     nbc + 'bootstrap-and-theme/bootstrap.min.css',
     bc + 'fontawesome/css/font-awesome.min.css',
     bc + 'toastr/toastr.min.css',
-    sc + 'styles/styles.css',
     nbc + 'highlight.js/github.css',
-    bc + 'codemirror/lib/codemirror.css'
+    bc + 'codemirror/lib/codemirror.css',
+    sc + 'styles/styles.css'
   ]);
 
   var scripts = _.union(
@@ -32,6 +31,10 @@ module.exports = function(env) {
       bc + 'moment/moment.js',
       nbc + 'highlight.js/highlight.pack.js',
       bc + 'codemirror/lib/codemirror.js',
+      bc + 'codemirror/mode/htmlmixed/htmlmixed.js',
+      bc + 'codemirror/mode/xml/xml.js',
+      bc + 'codemirror/mode/javascript/javascript.js',
+      bc + 'codemirror/mode/css/css.js',
 
       // angular core team stuff
       bc + 'angular-animate/angular-animate.min.js',
@@ -62,8 +65,6 @@ module.exports = function(env) {
     data.onDev = true;
     data.BASE_URL = 'http://localhost:8000/';
   }
-
-  console.log('I am here: ', process.cwd());
 
   return data;
 

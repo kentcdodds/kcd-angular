@@ -4,13 +4,15 @@ angular.module('kcd.site').directive('kcdThingExample', function($compile) {
   return {
     template: function() {
       return [
-        '<div>',
-          '<a ng-click="reset()">Reset</a> | <a ng-click="onEditClick()">{{edit ? "View Changes" : "Edit"}}</a>',
+        '<div class="kcd-thing-example-wrapper">',
+          '<div class="controls">',
+            '<a ng-click="reset()">Reset</a> | <a ng-click="onEditClick()">{{edit ? "View Changes" : "Edit"}}</a>',
+          '</div>',
           '<alert type="danger" close="alert=null" ng-if="alert">',
             '<strong>Script Error:</strong><br />{{alert.message}}<br /><small>see console</small>',
           '</alert>',
           '<div ng-hide="edit" class="example-area"></div>',
-          '<ui-codemirror ui-codemirror-opts="::{lineNumbers: true}" ng-show="edit" ng-model="html"></ui-codemirror>',
+          '<ui-codemirror ui-codemirror-opts="::{lineNumbers: true, mode: \'htmlmixed\'}" ng-show="edit" ng-model="html"></ui-codemirror>',
         '</div>'
       ].join(' ');
     },

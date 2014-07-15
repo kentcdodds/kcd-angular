@@ -13,23 +13,50 @@
     }
     .kcd-recompile-example .person-card .person-avatar-container img {
       max-height: 80px;
+      cursor: pointer;
+    }
+    .kcd-recompile-example .buttons {
+      margin-top: 14px;
     }
   </style>
   <div>
     <div>
+      Some things to try:
+      <ul>
+        <li>
+          <strong>Add/Remove/Recompile</strong>: Notice the difference in the total people and watches counts.
+          If you had a thousand of these, or more expressions in each, the watch count can go up pretty quick...
+        </li>
+        <li><strong>Edit</strong>: Try removing the "::" before some of the expressions. You can have watches inside of the kcd-recompile directive.</li>
+        <li>
+          <strong>Click Avatars</strong>: Try clicking the avatars. Notice that the count is incremented only on the normal example side.
+          When you recompile, the other side gets that too. Try clicking the one time binding example's avatars...
+        </li>
+      </ul>
+    </div>
+    <div>
+      <small>Fake user data provided by the awesome guys at <a href="http://randomuser.me/">randomuser.me</a></small>
+    </div>
+    <div class="buttons">
       <button type="button" class="btn btn-success" ng-click="addPerson()" ng-disabled="people.length >= totalPeopleCount">Add Person</button>
       <button type="button" class="btn btn-danger" ng-click="removePerson()" ng-disabled="!people.length">Remove Person</button>
       <button type="button" class="btn btn-primary" ng-click="recompile()">Recompile</button>
     </div>
+    <hr />
     <div class="row">
       <div kcd-watch-count class="col-md-6">
-        <strong>Normal Example</strong>: <small><span class="watch-count-container"></span> Total Watches</small>
-        <div>
-          Total People: {{people.length}} of {{totalPeopleCount}}
+        <div class="text-align-center">
+          <strong>Normal Example</strong>
+          <div>
+            Showing {{people.length}} of {{totalPeopleCount}} people | <span class="watch-count-container"></span> total watches
+          </div>
         </div>
         <div ng-repeat="person in people" class="person-card">
           <div class="person-avatar-container">
-            <img ng-src="{{person.picture}}" class="img-circle">
+            <img ng-src="{{person.picture}}" class="img-circle" ng-click="person.clicked=person.clicked || 0;person.clicked = person.clicked + 1">
+            <div>
+              <small>You've clicked this person {{person.clicked || 0}} times</small>
+            </div>
           </div>
           <div>Name: {{person.name.title}} {{person.name.first}} {{person.name.last}}</div>
           <div>Location: {{person.location.street}}, {{person.location.city}}, {{person.location.state}} {{person.location.zip}}</div>
@@ -42,13 +69,18 @@
         </div>
       </div>
       <div kcd-watch-count class="col-md-6" kcd-recompile="recompilePeople">
-        <strong>One Time Binding Example</strong>: <small><span class="watch-count-container"></span> Total Watches</small>
-        <div>
-          Total People: {{::people.length}} of {{::totalPeopleCount}}
+        <div class="text-align-center">
+          <strong>One Time Binding Example</strong>
+          <div>
+            Showing {{::people.length}} of {{::totalPeopleCount}} people | <strong class="watch-count-container"></strong> total watches
+          </div>
         </div>
         <div ng-repeat="person in ::people" class="person-card">
           <div class="person-avatar-container">
-            <img ng-src="{{::person.picture}}" class="img-circle">
+            <img ng-src="{{::person.picture}}" class="img-circle" ng-click="person.clicked=person.clicked || 0;person.clicked = person.clicked + 1">
+            <div>
+              <small>You've clicked this person {{::person.clicked || 0}} times</small>
+            </div>
           </div>
           <div>Name: {{::person.name.title}} {{::person.name.first}} {{::person.name.last}}</div>
           <div>Location: {{::person.location.street}}, {{::person.location.city}}, {{::person.location.state}} {{::person.location.zip}}</div>
