@@ -1,0 +1,84 @@
+<div class="kcd-recompile-example">
+  <style>
+    .kcd-recompile-example .person-card {
+      display: block;
+      box-sizing: border-box;
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+      padding: 10px;
+      margin: 18px;
+      border-radius: 2px;
+    }
+    .kcd-recompile-example .person-card img {
+      max-height: 54px;
+    }
+  </style>
+  <div>
+    <div>
+      <button type="button" class="btn btn-success" ng-click="addPerson()" ng-disabled="people.length >= totalPeopleCount">Add Person</button>
+      <button type="button" class="btn btn-danger" ng-click="removePerson()" ng-disabled="!people.length">Remove Person</button>
+      <button type="button" class="btn btn-primary" ng-click="recompile()">Recompile</button>
+    </div>
+    <div class="row">
+      <div kcd-watch-count class="col-md-6">
+        <strong>Normal Example</strong>: <small><span class="watch-count-container"></span> Total Watches</small>
+        <div ng-repeat="person in people" class="person-card">
+          <img ng-src="{{person.picture}}" class="img-circle">
+          <div>Name: {{person.name.title}} {{person.name.first}} {{person.name.last}}</div>
+          <div>Location: {{person.location.street}}, {{person.location.city}}, {{person.location.state}} {{person.location.zip}}</div>
+          <div>Email: {{person.email}}</div>
+          <div>Username: {{person.username}}</div>
+          <div>Birthday: {{person.dob | date}}</div>
+          <div>Phone: {{person.phone}}</div>
+          <div>Cell: {{person.cell}}</div>
+          <div>SSN: {{person.SSN}}</div>
+        </div>
+      </div>
+      <div kcd-watch-count class="col-md-6" kcd-recompile="recompilePeople">
+        <strong>One Time Binding Example</strong>: <small><span class="watch-count-container"></span> Total Watches</small>
+        <div ng-repeat="person in ::people" class="person-card">
+          <img ng-src="{{::person.picture}}" class="img-circle">
+          <div>Name: {{::person.name.title}} {{::person.name.first}} {{::person.name.last}}</div>
+          <div>Location: {{::person.location.street}}, {{::person.location.city}}, {{::person.location.state}} {{::person.location.zip}}</div>
+          <div>Email: {{::person.email}}</div>
+          <div>Username: {{::person.username}}</div>
+          <div>Birthday: {{::person.dob | date}}</div>
+          <div>Phone: {{::person.phone}}</div>
+          <div>Cell: {{::person.cell}}</div>
+          <div>SSN: {{::person.SSN}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    var injector = angular.element('html').injector();
+    var $http = injector.get('$http');
+
+    $scope.totalPeopleCount = 30;
+
+    $scope.addPerson = function() {
+      $scope.people.push(totalPeople.slice($scope.people.length, $scope.people.length + 1)[0]);
+    };
+
+    $scope.removePerson = function() {
+      $scope.people.pop();
+    };
+
+    $scope.recompilePeople = false;
+    $scope.recompile = function() {
+      $scope.recompilePeople = true;
+    };
+
+    var totalPeople = [];
+    $http.get('http://api.randomuser.me/?results=30').then(function success(response) {
+      $scope.people = $scope.people || [];
+      angular.forEach(response.data.results, function(result) {
+        totalPeople.push(result.user);
+      });
+      $scope.totalPeopleCount = totalPeople.length;
+      $scope.people = totalPeople.slice(0, 2);
+    }, function error(err) {
+      console.warn('Problem getting people...', err);
+      throw err;
+    });
+  </script>
+</div>

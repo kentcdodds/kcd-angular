@@ -1,0 +1,19 @@
+{
+  "name": "angular-ui-codemirror",
+  "main": "./ui-codemirror.js",
+  "dependencies": {
+    "angular": "^1",
+    "codemirror": "3 || 4"
+  },
+  "homepage": "https://github.com/angular-ui/ui-codemirror",
+  "_release": "8dbe7d0c1f",
+  "_resolution": {
+    "type": "branch",
+    "branch": "bower",
+    "commit": "8dbe7d0c1f9f32856d137a8d65c93c47151dbdcc"
+  },
+  "_source": "git://github.com/angular-ui/ui-codemirror.git",
+  "_target": "bower",
+  "_originalSource": "angular-ui-codemirror",
+  "_direct": true
+}

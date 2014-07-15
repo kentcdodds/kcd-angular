@@ -1,26 +1,38 @@
 angular.module('kcd.directives').directive('kcdRecompile', function($compile, $parse) {
   'use strict';
-  function getElementAsHtml(el) {
-    // http://jsperf.com/jquery-div-vs-span
-    return angular.element('<a></a>').append(el.clone()).html();
-  }
 
   return {
+    scope: true, // required to be able to clear watchers
     compile: function(el) {
-      var template = getElementAsHtml(el);
+      var template = el.html();
       return function link(scope, $el, attrs) {
-        scope.$watch(attrs.kcdRecompile, function(val) {
+        scope.$parent.$watch(attrs.kcdRecompile, function(val) {
           if (!val || val === 'false') {
             return;
           }
-          // recompile
-          var newEl = $compile(template)(scope);
-          $el.replaceWith(newEl);
-          $el = newEl;
+          // remove all watchers because the recompiled version will set them up again.
+          removeChildrenWatchers($el);
           // reset kcdRecompile to false
-          $parse(attrs.kcdRecompile).assign(scope, false);
+          $parse(attrs.kcdRecompile).assign(scope.$parent, false);
+
+          // recompile
+          var newEl = $compile(template)(scope.$parent.$new());
+          $el.html(newEl);
         });
       };
     }
   };
+
+  function removeChildrenWatchers(element) {
+    angular.forEach(element.children(), function(childElement) {
+      removeAllWatchers(angular.element(childElement));
+    });
+  }
+
+  function removeAllWatchers(element) {
+    if (element.data().hasOwnProperty('$scope')) {
+      element.data().$scope.$$watchers = [];
+    }
+    removeChildrenWatchers(element);
+  }
 });

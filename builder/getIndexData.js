@@ -10,6 +10,7 @@ module.exports = function(env) {
   var sc = r + 'site_components/';
   var kcd = r + 'kcd/';
   var topScripts = [
+    bc + 'jquery/dist/jquery.js', // has to be before angular so angular will use jQuery instead of jqLite
     bc + 'angular/angular.js'
   ];
 
@@ -18,18 +19,19 @@ module.exports = function(env) {
     bc + 'fontawesome/css/font-awesome.min.css',
     bc + 'toastr/toastr.min.css',
     sc + 'styles/styles.css',
-    nbc + 'highlight.js/github.css'
+    nbc + 'highlight.js/github.css',
+    bc + 'codemirror/lib/codemirror.css'
   ]);
 
   var scripts = _.union(
     [
       // non angular related stuff
-      bc + 'jquery/dist/jquery.js',
       bc + 'lodash/dist/lodash.js',
       bc + 'toastr/toastr.min.js',
       bc + 'marked/lib/marked.js',
       bc + 'moment/moment.js',
       nbc + 'highlight.js/highlight.pack.js',
+      bc + 'codemirror/lib/codemirror.js',
 
       // angular core team stuff
       bc + 'angular-animate/angular-animate.min.js',
@@ -39,8 +41,8 @@ module.exports = function(env) {
       bc + 'angular-bootstrap/ui-bootstrap-tpls.js',
 
       // other angular mods
-      bc + 'angularjs-scope.safeapply/src/Scope.SafeApply.min.js',
-      nbc + 'ng-docs.js'
+      bc + 'angular-ui-codemirror/ui-codemirror.min.js',
+      bc + 'angularjs-scope.safeapply/src/Scope.SafeApply.min.js'
     ],
     // parakeet stuff
     // kcd components first

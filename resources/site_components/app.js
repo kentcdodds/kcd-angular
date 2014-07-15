@@ -3,7 +3,8 @@
 
   var dependencies = [
     'ngAnimate',
-    'ui.router', 'ui.bootstrap', 'Scope.safeApply', 'ngDocsExamples',
+    'ui.router', 'ui.bootstrap', 'Scope.safeApply',
+    'ui.codemirror',
     'kcd'
   ];
 

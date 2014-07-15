@@ -10,7 +10,7 @@ angular.module('kcd.site').directive('kcdThingExample', function($compile) {
             '<strong>Script Error:</strong><br />{{alert.message}}<br /><small>see console</small>',
           '</alert>',
           '<div ng-hide="edit" class="example-area"></div>',
-          '<pre ng-show="edit" class="edit-area" contenteditable ng-model="html"></pre>',
+          '<ui-codemirror ui-codemirror-opts="::{lineNumbers: true}" ng-show="edit" ng-model="html"></ui-codemirror>',
         '</div>'
       ].join(' ');
     },
@@ -20,7 +20,7 @@ angular.module('kcd.site').directive('kcdThingExample', function($compile) {
     link: function(scope, el) {
       var childScope = null;
       var childEl = null;
-      var exampleArea = $(el).find('.example-area');
+      var exampleArea = el.find('.example-area');
 
       scope.reset = reset;
       scope.edit = false;

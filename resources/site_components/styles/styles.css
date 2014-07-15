@@ -62,4 +62,4 @@ pre code{white-space:pre;word-wrap:normal}
 /* line 17 : /Users/kentcdodds/Developer/kcd-angular/resources/site_components/stylus/main.styl */
 a{cursor:pointer}
 /* line 20 : /Users/kentcdodds/Developer/kcd-angular/resources/site_components/stylus/main.styl */
-*{outline:none}
+*{outline:none !important}
