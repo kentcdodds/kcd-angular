@@ -3,7 +3,7 @@
 
   var dependencies = [
     'ngAnimate',
-    'ui.router', 'ui.bootstrap', 'Scope.safeApply',
+    'ui.router', 'ui.bootstrap', 'Scope.safeApply', 'ngDocsExamples',
     'kcd'
   ];
 
@@ -31,35 +31,27 @@
           var thingName = $stateParams.thing;
           return AngularThingsGetter.getThing(thingName);
         },
-        thingDocs: function($http, thing) {
-          if (thing.docs) { // it's already been set
-            return thing.docs;
-          }
-
-          return $http.get(thing.docsPath).then(function success(response) {
-            thing.docs = response.data;
-            return thing.docs;
-          }, function error(err) {
-            return 'Error loading docs';
-          });
-        },
-        thingCode: function($http, thing) {
-          if (thing.libraryLink) { // we're not showing library code
-            return null;
-          }
-          if (thing.code) { // it's already been set
-            return thing.code;
-          }
-
-          return $http.get(thing.codePath).then(function success(response) {
-            thing.code = response.data;
-            return thing.code;
-          }, function error(err) {
-            return 'Error loading code';
-          });
-        }
+        thingDocs: getFileStringGetter('docsPath', 'docs'),
+        thingExample: getFileStringGetter('examplePath', 'example'),
+        thingCode: getFileStringGetter('codePath', 'code', 'libraryLink')
       }
     });
+
+    function getFileStringGetter(pathProp, assignmentProp, checkProp) {
+      return function($http, thing) {
+        if (checkProp && thing[checkProp]) { // passes extra check if necessary
+          return null;
+        }
+        if (thing[assignmentProp]) { // it's already been set
+          return thing[assignmentProp];
+        }
+        return $http.get(thing[pathProp]).then(function success(response) {
+          thing[assignmentProp] = response.data;
+        }, function error(err) {
+          return 'Error loading ' + assignmentProp;
+        });
+      };
+    }
 
     $urlRouterProvider.otherwise('/');
   });
