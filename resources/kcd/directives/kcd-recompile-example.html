@@ -8,8 +8,11 @@
       margin: 18px;
       border-radius: 2px;
     }
-    .kcd-recompile-example .person-card img {
-      max-height: 54px;
+    .kcd-recompile-example .person-card .person-avatar-container {
+      text-align: center;
+    }
+    .kcd-recompile-example .person-card .person-avatar-container img {
+      max-height: 80px;
     }
   </style>
   <div>
@@ -21,8 +24,13 @@
     <div class="row">
       <div kcd-watch-count class="col-md-6">
         <strong>Normal Example</strong>: <small><span class="watch-count-container"></span> Total Watches</small>
+        <div>
+          Total People: {{people.length}} of {{totalPeopleCount}}
+        </div>
         <div ng-repeat="person in people" class="person-card">
-          <img ng-src="{{person.picture}}" class="img-circle">
+          <div class="person-avatar-container">
+            <img ng-src="{{person.picture}}" class="img-circle">
+          </div>
           <div>Name: {{person.name.title}} {{person.name.first}} {{person.name.last}}</div>
           <div>Location: {{person.location.street}}, {{person.location.city}}, {{person.location.state}} {{person.location.zip}}</div>
           <div>Email: {{person.email}}</div>
@@ -35,8 +43,13 @@
       </div>
       <div kcd-watch-count class="col-md-6" kcd-recompile="recompilePeople">
         <strong>One Time Binding Example</strong>: <small><span class="watch-count-container"></span> Total Watches</small>
+        <div>
+          Total People: {{::people.length}} of {{::totalPeopleCount}}
+        </div>
         <div ng-repeat="person in ::people" class="person-card">
-          <img ng-src="{{::person.picture}}" class="img-circle">
+          <div class="person-avatar-container">
+            <img ng-src="{{::person.picture}}" class="img-circle">
+          </div>
           <div>Name: {{::person.name.title}} {{::person.name.first}} {{::person.name.last}}</div>
           <div>Location: {{::person.location.street}}, {{::person.location.city}}, {{::person.location.state}} {{::person.location.zip}}</div>
           <div>Email: {{::person.email}}</div>
@@ -53,7 +66,7 @@
     var injector = angular.element('html').injector();
     var $http = injector.get('$http');
 
-    $scope.totalPeopleCount = 30;
+    $scope.totalPeopleCount = 20;
 
     $scope.addPerson = function() {
       $scope.people.push(totalPeople.slice($scope.people.length, $scope.people.length + 1)[0]);
@@ -69,7 +82,7 @@
     };
 
     var totalPeople = [];
-    $http.get('http://api.randomuser.me/?results=30').then(function success(response) {
+    $http.get('http://api.randomuser.me/?results=' + $scope.totalPeopleCount).then(function success(response) {
       $scope.people = $scope.people || [];
       angular.forEach(response.data.results, function(result) {
         totalPeople.push(result.user);
