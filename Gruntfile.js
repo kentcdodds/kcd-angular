@@ -1,8 +1,9 @@
 module.exports = function(grunt) {
   'use strict';
-  var glob = require('glob');
 
   require('time-grunt')(grunt);
+  require('load-grunt-tasks')(grunt);
+
   var r = 'resources/';
   var kcd = r + 'kcd/';
   var sc = r + 'site_components/';
@@ -46,13 +47,13 @@ module.exports = function(grunt) {
         files: [kcd + '**/*.styl', sc + '**/*.styl'],
         tasks: 'stylus'
       }
+    },
+    'gh-pages': {
+      src: ['**']
     }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-jade');
-  grunt.loadNpmTasks('grunt-contrib-stylus');
-  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.registerTask('publish', 'gh-pages');
 
   grunt.registerTask('nohint', ['stylus', 'jade']);
   grunt.registerTask('build', ['jshint', 'nohint']);

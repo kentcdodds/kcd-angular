@@ -4,14 +4,16 @@
   "description": "Angular components that I have made and think are useful",
   "main": "./resources/kcd/app.js",
   "devDependencies": {
+    "glob": "^4.0.2",
     "grunt": "^0.4.5",
     "grunt-contrib-jade": "^0.12.0",
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-stylus": "^0.17.0",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-gh-pages": "^0.9.1",
+    "load-grunt-tasks": "^0.6.0",
     "lodash-node": "^2.4.1",
-    "time-grunt": "^0.3.2",
-    "glob": "^4.0.2"
+    "time-grunt": "^0.3.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
