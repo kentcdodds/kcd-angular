@@ -49,7 +49,10 @@ module.exports = function(grunt) {
       }
     },
     'gh-pages': {
-      src: ['**']
+      options: {
+        message: 'Auto-generated commit'
+      },
+      src: ['**', '!node_modules/', '!builder/', '!bower.json', '!Gruntfile.js']
     }
   });
 
