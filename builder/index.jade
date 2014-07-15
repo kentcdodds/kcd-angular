@@ -1,6 +1,6 @@
 html(ng-app="kcd.site",lang="en")
   head
-    title(ng-bind="title") KCD Module
+    title(ng-bind="(section ? section + ' - ' : '') + 'KCD Module'")
     meta(name="title",content="KCD Module")
     meta(name="description" content="Angular components that I have made and think are useful.")
     meta(name="keywords" content="angularjs, angular, angular directives, angular services, angular filters")

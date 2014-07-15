@@ -44,15 +44,19 @@ module.exports = function(grunt) {
     },
     watch: {
       stylus: {
-        files: [kcd + '**/*.styl', sc + '**/*.styl'],
+        files: [kcd + '**/*.styl', sc + '**/*.styl', 'Gruntfile.js'],
         tasks: 'stylus'
+      },
+      jade: {
+        files: ['builder/**', 'Gruntfile.js'],
+        tasks: 'jade'
       }
     },
     'gh-pages': {
       options: {
         message: 'Auto-generated commit'
       },
-      src: ['**', '!node_modules/', '!builder/', '!bower.json', '!Gruntfile.js']
+      src: ['**', '!node_modules/**', '!builder/**', '!bower.json', '!Gruntfile.js']
     }
   });
 

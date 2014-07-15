@@ -56,9 +56,11 @@
     $urlRouterProvider.otherwise('/');
   });
 
-  site.run(function($rootScope) {
+  site.run(function($rootScope, $stateParams) {
+    $rootScope.section = $stateParams.thing || '';
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
       console.log('$stateChangeSuccess: ' + toState.name);
+      $rootScope.section = $stateParams.thing || '';
     });
   });
 })();
