@@ -1,5 +1,9 @@
 <div class="kcd-recompile-example">
   <style>
+    .kcd-recompile-example .buttons button {
+      margin-left: 6px;
+      margin-right: 6px;
+    }
     .kcd-recompile-example .person-card {
       display: block;
       box-sizing: border-box;
@@ -40,7 +44,7 @@
     <div class="buttons">
       <button type="button" class="btn btn-success" ng-click="addPerson()" ng-disabled="people.length >= totalPeopleCount">Add Person</button>
       <button type="button" class="btn btn-danger" ng-click="removePerson()" ng-disabled="!people.length">Remove Person</button>
-      <button type="button" class="btn btn-primary" ng-click="recompile()">Recompile</button>
+      <button type="button" class="btn btn-info" ng-click="recompile()">Recompile</button>
     </div>
     <hr />
     <div class="row">
@@ -53,7 +57,7 @@
         </div>
         <div ng-repeat="person in people" class="person-card">
           <div class="person-avatar-container">
-            <img ng-src="{{person.picture}}" class="img-circle" ng-click="person.clicked=person.clicked || 0;person.clicked = person.clicked + 1">
+            <img ng-src="{{person.picture}}" class="img-circle" ng-click="increment(person, 'clicked')">
             <div>
               <small>You've clicked this person {{person.clicked || 0}} times</small>
             </div>
@@ -68,18 +72,18 @@
           <div>SSN: {{person.SSN}}</div>
         </div>
       </div>
-      <div kcd-watch-count class="col-md-6" kcd-recompile="recompilePeople">
+      <div kcd-watch-count class="col-md-6" kcd-recompile="recompilePeople" use-boolean>
         <div class="text-align-center">
           <strong>One Time Binding Example</strong>
           <div>
             Showing {{::people.length}} of {{::totalPeopleCount}} people | <strong class="watch-count-container"></strong> total watches
           </div>
         </div>
-        <div ng-repeat="person in ::people" class="person-card">
+        <div ng-repeat="person in ::people" class="person-card" kcd-recompile="person.recompileCount">
           <div class="person-avatar-container">
-            <img ng-src="{{::person.picture}}" class="img-circle" ng-click="person.clicked=person.clicked || 0;person.clicked = person.clicked + 1">
+            <img ng-src="{{::person.picture}}" class="img-circle" ng-click="increment(person, 'clicked')">
             <div>
-              <small>You've clicked this person {{::person.clicked || 0}} times</small>
+              <small>You've clicked this person {{::person.clicked}} times</small>
             </div>
           </div>
           <div>Name: {{::person.name.title}} {{::person.name.first}} {{::person.name.last}}</div>
@@ -90,6 +94,11 @@
           <div>Phone: {{::person.phone}}</div>
           <div>Cell: {{::person.cell}}</div>
           <div>SSN: {{::person.SSN}}</div>
+          <div>
+            <button type="button" class="btn btn-default btn-sm pull-right" ng-click="increment(person, 'recompileCount')" style="margin-top:-31px">
+              Recompile Card {{::person.recompileCount}}
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -113,10 +122,16 @@
       $scope.recompilePeople = true;
     };
 
+    $scope.increment = function(person, thing) {
+      person[thing]++;
+    };
+
     var totalPeople = [];
     $http.get('http://api.randomuser.me/?results=' + $scope.totalPeopleCount).then(function success(response) {
       $scope.people = $scope.people || [];
       angular.forEach(response.data.results, function(result) {
+        result.user.clicked = 0;
+        result.user.recompileCount = 0;
         totalPeople.push(result.user);
       });
       $scope.totalPeopleCount = totalPeople.length;

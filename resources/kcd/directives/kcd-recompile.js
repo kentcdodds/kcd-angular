@@ -6,14 +6,17 @@ angular.module('kcd.directives').directive('kcdRecompile', function($compile, $p
     compile: function(el) {
       var template = el.html();
       return function link(scope, $el, attrs) {
-        scope.$parent.$watch(attrs.kcdRecompile, function(val) {
-          if (!val || val === 'false') {
+        scope.$parent.$watch(attrs.kcdRecompile, function(_new, _old) {
+          var useBoolean = attrs.hasOwnProperty('useBoolean');
+          if ((useBoolean && (!_new || _new === 'false')) || (!useBoolean && (!_new || _new === _old))) {
             return;
           }
           // remove all watchers because the recompiled version will set them up again.
           removeChildrenWatchers($el);
-          // reset kcdRecompile to false
-          $parse(attrs.kcdRecompile).assign(scope.$parent, false);
+          // reset kcdRecompile to false if we're using a boolean
+          if (useBoolean) {
+            $parse(attrs.kcdRecompile).assign(scope.$parent, false);
+          }
 
           // recompile
           var newEl = $compile(template)(scope.$parent.$new());

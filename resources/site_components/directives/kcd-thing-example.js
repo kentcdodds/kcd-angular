@@ -6,7 +6,9 @@ angular.module('kcd.site').directive('kcdThingExample', function($compile) {
       return [
         '<div class="kcd-thing-example-wrapper">',
           '<div class="controls">',
-            '<a ng-click="reset()">Reset</a> | <a ng-click="onEditClick()">{{edit ? "View Changes" : "Edit"}}</a>',
+            '<a ng-click="reset()" tooltip="Reset to original demo">Reset</a>',
+            ' | ',
+            '<a ng-click="onEditClick()" tooltip="You can edit this demo">{{edit ? "View Changes" : "Edit"}}</a>',
           '</div>',
           '<alert type="danger" close="alert=null" ng-if="alert">',
             '<strong>Script Error:</strong><br />{{alert.message}}<br /><small>see console</small>',
