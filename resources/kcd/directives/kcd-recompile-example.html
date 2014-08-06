@@ -8,7 +8,7 @@
       display: block;
       box-sizing: border-box;
       box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-      padding: 10px;
+      padding: 10px 10px 30px 10px;
       margin: 18px;
       border-radius: 2px;
     }
@@ -16,11 +16,30 @@
       text-align: center;
     }
     .kcd-recompile-example .person-card .person-avatar-container img {
-      max-height: 80px;
+      height: 128px;
+      width: 128px;
       cursor: pointer;
     }
-    .kcd-recompile-example .buttons {
+    .kcd-recompile-example .controls {
       margin-top: 14px;
+    }
+    .kcd-recompile-example .margin-vertical-small {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .kcd-recompile-example .margin-vertical-large {
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
+    .kcd-recompile-example #totalPeople {
+      width: 70px;
+    }
+    .kcd-recompile-example .hover-items .item {
+      display: inline-block;
+      padding: 20px;
+    }
+    .kcd-recompile-example .hover-items .item.hovering {
+      background-color: #DDD;
     }
   </style>
   <div>
@@ -38,64 +57,136 @@
         </li>
       </ul>
     </div>
-    <div>
-      <small>Fake user data provided by the awesome guys at <a href="http://randomuser.me/">randomuser.me</a></small>
-    </div>
-    <div class="buttons">
-      <button type="button" class="btn btn-success" ng-click="addPerson()" ng-disabled="people.length >= totalPeopleCount">Add Person</button>
-      <button type="button" class="btn btn-danger" ng-click="removePerson()" ng-disabled="!people.length">Remove Person</button>
-      <button type="button" class="btn btn-info" ng-click="recompile()">Recompile</button>
+    <div class="controls row">
+      <div class="col-md-3">
+        <form class="form-inline">
+          <div class="form-group">
+            <label for="totalPeople">Total People</label>
+            <input type="number" class="form-control" id="totalPeople" placeholder="Total People" ng-model="visiblePeople">
+            of {{totalPeopleCount}}
+          </div>
+        </form>
+      </div>
+      <div class="col-md-9 hover-items">
+        How does the watch count impact performance? Try hovering around here for a bit, show/hide the different lists.
+        Change how many people are showing. Watch count has a big impact...
+        <div>
+          <div ng-repeat="item in ::[1,2,3,4]" class="item" ng-class="{'hovering': hovering[item]}" ng-mouseenter="hovering[item]=true" ng-mouseleave="hovering[item]=false">
+            Hover over {{::item}}
+          </div>
+        </div>
+        <div>
+          <div ng-repeat="item in ::[5,6,7,8]" class="item" ng-class="{'hovering': hovering[item]}" ng-mouseenter="hovering[item]=true" ng-mouseleave="hovering[item]=false">
+            Hover over {{::item}}
+          </div>
+        </div>
+        <div>
+          <div ng-repeat="item in ::[9,10,11,12]" class="item" ng-class="{'hovering': hovering[item]}" ng-mouseenter="hovering[item]=true" ng-mouseleave="hovering[item]=false">
+            Hover over {{::item}}
+          </div>
+        </div>
+      </div>
     </div>
     <hr />
     <div class="row">
       <div kcd-watch-count class="col-md-6">
         <div class="text-align-center">
-          <strong>Normal Example</strong>
-          <div>
-            Showing {{people.length}} of {{totalPeopleCount}} people | <span class="watch-count-container"></span> total watches
-          </div>
+          <strong>Normal Example</strong> <small><a ng-click="hideNormal=!hideNormal">{{hideNormal ? 'Show' : 'Hide'}}</a></small>
+          <div><span class="watch-count-container"></span> total watches</div>
         </div>
-        <div ng-repeat="person in people" class="person-card">
+        <div ng-repeat="person in people" class="person-card" ng-if="!hideNormal">
           <div class="person-avatar-container">
-            <img ng-src="{{person.picture}}" class="img-circle" ng-click="increment(person, 'clicked')">
-            <div>
-              <small>You've clicked this person {{person.clicked || 0}} times</small>
+            <img ng-src="{{person.picture}}" class="img-circle img-thumbnail" ng-click="increment(person, 'clicked')">
+            <div class="margin-vertical-small">
+              <small>You've clicked {{person.name}} {{person.clicked || 0}} times</small>
             </div>
           </div>
-          <div>Name: {{person.name.title}} {{person.name.first}} {{person.name.last}}</div>
-          <div>Location: {{person.location.street}}, {{person.location.city}}, {{person.location.state}} {{person.location.zip}}</div>
-          <div>Email: {{person.email}}</div>
-          <div>Username: {{person.username}}</div>
-          <div>Birthday: {{person.dob | date}}</div>
-          <div>Phone: {{person.phone}}</div>
-          <div>Cell: {{person.cell}}</div>
-          <div>SSN: {{person.SSN}}</div>
+          <div>
+            <strong>Name:</strong> {{person.name}}
+          </div>
+          <div>
+            <strong>Username:</strong> {{person.username}}
+          </div>
+          <div>
+            <strong>Email:</strong> <a ng-href="mailto:{{person.email}}">{{person.email}}</a>
+          </div>
+          <div>
+            <strong>Address:</strong> <a ng-href="http://maps.google.com/?q={{person.address.geo.lat}},{{person.address.geo.lng}}">Map</a>
+            <div>
+              {{person.address.streetC}}, {{person.address.city}}<br />
+              {{person.address.ukCounty}}, {{person.address.ukCountry}} {{person.address.zipcode}}
+            </div>
+          </div>
+          <div>
+            <strong>Phone:</strong> <a ng-href="tel:{{person.phone}}">{{person.phone}}</a>
+          </div>
+          <div>
+            <strong>Website:</strong> <a ng-href="http://{{person.website}}">{{person.website}}</a>
+          </div>
+          <div>
+            <strong>Company:</strong> {{person.company.name}} - {{person.company.catchPhrase}}
+          </div>
+          <div>
+            <strong>Posts:</strong>
+            <accordion>
+              <accordion-group ng-repeat="post in person.posts" heading="{{post.sentence}}">
+                {{post.paragraph}}
+              </accordion-group>
+            </accordion>
+          </div>
         </div>
       </div>
       <div kcd-watch-count class="col-md-6" kcd-recompile="recompilePeople" use-boolean>
         <div class="text-align-center">
-          <strong>One Time Binding Example</strong>
+          <strong>One Time Binding Example</strong> <small><a ng-click="hideOneTime=!hideOneTime">{{hideOneTime ? 'Show' : 'Hide'}}</a></small>
           <div>
-            Showing {{::people.length}} of {{::totalPeopleCount}} people | <strong class="watch-count-container"></strong> total watches
+            <strong class="watch-count-container"></strong> total watches
+            |
+            <a ng-click="recompile()">Recompile</a>
           </div>
         </div>
-        <div ng-repeat="person in ::people" class="person-card" kcd-recompile="person.recompileCount">
+        <div ng-repeat="person in ::people" class="person-card" kcd-recompile="person.recompileCount" ng-if="!hideOneTime">
           <div class="person-avatar-container">
-            <img ng-src="{{::person.picture}}" class="img-circle" ng-click="increment(person, 'clicked')">
-            <div>
-              <small>You've clicked this person {{::person.clicked}} times</small>
+            <img ng-src="{{::person.picture}}" class="img-circle img-thumbnail" ng-click="increment(person, 'clicked')">
+            <div class="margin-vertical-small">
+              <small>You've clicked {{::person.name}} {{::person.clicked || 0}} times</small>
             </div>
           </div>
-          <div>Name: {{::person.name.title}} {{::person.name.first}} {{::person.name.last}}</div>
-          <div>Location: {{::person.location.street}}, {{::person.location.city}}, {{::person.location.state}} {{::person.location.zip}}</div>
-          <div>Email: {{::person.email}}</div>
-          <div>Username: {{::person.username}}</div>
-          <div>Birthday: {{::person.dob | date}}</div>
-          <div>Phone: {{::person.phone}}</div>
-          <div>Cell: {{::person.cell}}</div>
-          <div>SSN: {{::person.SSN}}</div>
           <div>
-            <button type="button" class="btn btn-default btn-sm pull-right" ng-click="increment(person, 'recompileCount')" style="margin-top:-31px">
+            <strong>Name:</strong> {{::person.name}}
+          </div>
+          <div>
+            <strong>Username:</strong> {{::person.username}}
+          </div>
+          <div>
+            <strong>Email:</strong> <a ng-href="mailto:{{::person.email}}">{{::person.email}}</a>
+          </div>
+          <div>
+            <strong>Address:</strong> <a ng-href="http://maps.google.com/?q={{::person.address.geo.lat}},{{::person.address.geo.lng}}">Map</a>
+            <div>
+              {{::person.address.streetC}}, {{::person.address.city}}<br />
+              {{::person.address.ukCounty}}, {{::person.address.ukCountry}} {{::person.address.zipcode}}
+            </div>
+          </div>
+          <div>
+            <strong>Phone:</strong> <a ng-href="tel:{{::person.phone}}">{{::person.phone}}</a>
+          </div>
+          <div>
+            <strong>Website:</strong> <a ng-href="http://{{::person.website}}">{{::person.website}}</a>
+          </div>
+          <div>
+            <strong>Company:</strong> {{::person.company.name}} - {{::person.company.catchPhrase}}
+          </div>
+          <div>
+            <strong>Posts:</strong>
+            <accordion>
+              <accordion-group ng-repeat="post in ::person.posts" heading="{{::post.sentence}}">
+                {{::post.paragraph}}
+              </accordion-group>
+            </accordion>
+          </div>
+          <div>
+            <button type="button" class="btn btn-default btn-sm pull-right" ng-click="increment(person, 'recompileCount')" style="margin-top:-10px">
               Recompile Card {{::person.recompileCount}}
             </button>
           </div>
@@ -105,17 +196,9 @@
   </div>
   <script>
     var injector = angular.element('html').injector();
-    var $http = injector.get('$http');
+    var faker = injector.get('faker');
 
-    $scope.totalPeopleCount = 20;
-
-    $scope.addPerson = function() {
-      $scope.people.push(totalPeople.slice($scope.people.length, $scope.people.length + 1)[0]);
-    };
-
-    $scope.removePerson = function() {
-      $scope.people.pop();
-    };
+    $scope.hovering = {};
 
     $scope.recompilePeople = false;
     $scope.recompile = function() {
@@ -126,19 +209,22 @@
       person[thing]++;
     };
 
-    var totalPeople = [];
-    $http.get('http://api.randomuser.me/?results=' + $scope.totalPeopleCount).then(function success(response) {
-      $scope.people = $scope.people || [];
-      angular.forEach(response.data.results, function(result) {
-        result.user.clicked = 0;
-        result.user.recompileCount = 0;
-        totalPeople.push(result.user);
-      });
-      $scope.totalPeopleCount = totalPeople.length;
-      $scope.people = totalPeople.slice(0, 2);
-    }, function error(err) {
-      console.warn('Problem getting people...', err);
-      throw err;
+    $scope.$watch('visiblePeople', function(_new, _old) {
+      $scope.people = totalPeople.slice(0, _new);
     });
+
+    $scope.users = [];
+    $scope.totalPeopleCount = 250;
+    $scope.visiblePeople = Math.floor($scope.totalPeopleCount * 0.2);
+
+    var totalPeople = [];
+    var user = null;
+    for (var i = 0; i < $scope.totalPeopleCount; i++) {
+      user = faker.Helpers.createCard();
+      user.clicked = 0;
+      user.recompileCount = 0;
+      user.picture = faker.Image.avatar();
+      totalPeople.push(user);
+    }
   </script>
 </div>
