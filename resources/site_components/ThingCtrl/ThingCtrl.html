@@ -7,20 +7,20 @@
     <div ng-bind-html="::(thing.docs || '{{thing.name}} is not documented...') | kcdMdToHtml" kcd-highlight-code></div>
   </div>
 
-  <hr ng-if="::thing.example"/>
+  <hr ng-if="::hasExample"/>
 
-  <div ng-if="::thing.example">
+  <div ng-if="::hasExample">
     <h5>Interactive Example</h5>
     <div kcd-thing-example="thing.example"></div>
   </div>
 
   <hr />
 
-  <div ng-if="::!thing.libraryLink">
+  <div ng-if="::!isLibrary">
     <h5>Code <kcd-clipboard-copy text="{{::thing.code}}"></kcd-clipboard-copy></h5>
     <div ng-bind-html="::('```javascript\n' + thing.code + '\n```') | kcdMdToHtml" kcd-highlight-code></div>
   </div>
-  <div ng-if="::thing.libraryLink">
+  <div ng-if="::isLibrary">
     <h5>Link</h5>
     <a ng-href="{{::thing.libraryLink}}">Click here</a> to go to the {{::thing.name}} website.
   </div>
