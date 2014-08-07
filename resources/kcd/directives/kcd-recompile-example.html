@@ -94,45 +94,47 @@
           <strong>Normal Example</strong> <small><a ng-click="hideNormal=!hideNormal">{{hideNormal ? 'Show' : 'Hide'}}</a></small>
           <div><span class="watch-count-container"></span> total watches</div>
         </div>
-        <div ng-repeat="person in people" class="person-card" ng-if="!hideNormal">
-          <div class="person-avatar-container">
-            <img ng-src="{{person.picture}}" class="img-circle img-thumbnail" ng-click="increment(person, 'clicked')">
-            <div class="margin-vertical-small">
-              <small>You've clicked {{person.name}} {{person.clicked || 0}} times</small>
+        <div ng-if="!hideNormal">
+          <div ng-repeat="person in people" class="person-card">
+            <div class="person-avatar-container">
+              <img ng-src="{{person.picture}}" class="img-circle img-thumbnail" ng-click="increment(person, 'clicked')">
+              <div class="margin-vertical-small">
+                <small>You've clicked {{person.name}} {{person.clicked || 0}} times</small>
+              </div>
             </div>
-          </div>
-          <div>
-            <strong>Name:</strong> {{person.name}}
-          </div>
-          <div>
-            <strong>Username:</strong> {{person.username}}
-          </div>
-          <div>
-            <strong>Email:</strong> <a ng-href="mailto:{{person.email}}">{{person.email}}</a>
-          </div>
-          <div>
-            <strong>Address:</strong> <a ng-href="http://maps.google.com/?q={{person.address.geo.lat}},{{person.address.geo.lng}}">Map</a>
             <div>
-              {{person.address.streetC}}, {{person.address.city}}<br />
-              {{person.address.ukCounty}}, {{person.address.ukCountry}} {{person.address.zipcode}}
+              <strong>Name:</strong> {{person.name}}
             </div>
-          </div>
-          <div>
-            <strong>Phone:</strong> <a ng-href="tel:{{person.phone}}">{{person.phone}}</a>
-          </div>
-          <div>
-            <strong>Website:</strong> <a ng-href="http://{{person.website}}">{{person.website}}</a>
-          </div>
-          <div>
-            <strong>Company:</strong> {{person.company.name}} - {{person.company.catchPhrase}}
-          </div>
-          <div>
-            <strong>Posts:</strong>
-            <accordion>
-              <accordion-group ng-repeat="post in person.posts" heading="{{post.sentence}}">
-                {{post.paragraph}}
-              </accordion-group>
-            </accordion>
+            <div>
+              <strong>Username:</strong> {{person.username}}
+            </div>
+            <div>
+              <strong>Email:</strong> <a ng-href="mailto:{{person.email}}">{{person.email}}</a>
+            </div>
+            <div>
+              <strong>Address:</strong> <a ng-href="http://maps.google.com/?q={{person.address.geo.lat}},{{person.address.geo.lng}}">Map</a>
+              <div>
+                {{person.address.streetC}}, {{person.address.city}}<br />
+                {{person.address.ukCounty}}, {{person.address.ukCountry}} {{person.address.zipcode}}
+              </div>
+            </div>
+            <div>
+              <strong>Phone:</strong> <a ng-href="tel:{{person.phone}}">{{person.phone}}</a>
+            </div>
+            <div>
+              <strong>Website:</strong> <a ng-href="http://{{person.website}}">{{person.website}}</a>
+            </div>
+            <div>
+              <strong>Company:</strong> {{person.company.name}} - {{person.company.catchPhrase}}
+            </div>
+            <div>
+              <strong>Posts:</strong>
+              <accordion>
+                <accordion-group ng-repeat="post in person.posts" heading="{{post.sentence}}">
+                  {{post.paragraph}}
+                </accordion-group>
+              </accordion>
+            </div>
           </div>
         </div>
       </div>
@@ -145,50 +147,56 @@
             <a ng-click="recompile()">Recompile</a>
           </div>
         </div>
-        <div ng-repeat="person in ::people" class="person-card" kcd-recompile="person.recompileCount" ng-if="!hideOneTime">
-          <div class="person-avatar-container">
-            <img ng-src="{{::person.picture}}" class="img-circle img-thumbnail" ng-click="increment(person, 'clicked')">
-            <div class="margin-vertical-small">
-              <small>You've clicked {{::person.name}} {{::person.clicked || 0}} times</small>
+        <div ng-if="!hideOneTime">
+          <div ng-repeat="person in ::people" class="person-card">
+            <div kcd-recompile="person.recompileCount">
+              <div class="person-avatar-container">
+                <img ng-src="{{::person.picture}}" class="img-circle img-thumbnail" ng-click="increment(person, 'clicked')">
+                <div class="margin-vertical-small">
+                  <small>You've clicked {{::person.name}} {{::person.clicked || 0}} times</small>
+                </div>
+              </div>
+              <div>
+                <strong>Name:</strong> {{::person.name}}
+              </div>
+              <div>
+                <strong>Username:</strong> {{::person.username}}
+              </div>
+              <div>
+                <strong>Email:</strong> <a ng-href="mailto:{{::person.email}}">{{::person.email}}</a>
+              </div>
+              <div>
+                <strong>Address:</strong> <a ng-href="http://maps.google.com/?q={{::person.address.geo.lat}},{{::person.address.geo.lng}}">Map</a>
+                <div>
+                  {{::person.address.streetC}}, {{::person.address.city}}<br />
+                  {{::person.address.ukCounty}}, {{::person.address.ukCountry}} {{::person.address.zipcode}}
+                </div>
+              </div>
+              <div>
+                <strong>Phone:</strong> <a ng-href="tel:{{::person.phone}}">{{::person.phone}}</a>
+              </div>
+              <div>
+                <strong>Website:</strong> <a ng-href="http://{{::person.website}}">{{::person.website}}</a>
+              </div>
+              <div>
+                <strong>Company:</strong> {{::person.company.name}} - {{::person.company.catchPhrase}}
+              </div>
+              <div>
+                <strong>Posts:</strong>
+                <div>
+                  <accordion>
+                    <accordion-group ng-repeat="post in ::person.posts" heading="{{::post.sentence}}">
+                      {{::post.paragraph}}
+                    </accordion-group>
+                  </accordion>
+                </div>
+              </div>
+              <div>
+                <button type="button" class="btn btn-default btn-sm pull-right" ng-click="increment(person, 'recompileCount')" style="margin-top:-10px">
+                  Recompile Card {{::person.recompileCount}}
+                </button>
+              </div>
             </div>
-          </div>
-          <div>
-            <strong>Name:</strong> {{::person.name}}
-          </div>
-          <div>
-            <strong>Username:</strong> {{::person.username}}
-          </div>
-          <div>
-            <strong>Email:</strong> <a ng-href="mailto:{{::person.email}}">{{::person.email}}</a>
-          </div>
-          <div>
-            <strong>Address:</strong> <a ng-href="http://maps.google.com/?q={{::person.address.geo.lat}},{{::person.address.geo.lng}}">Map</a>
-            <div>
-              {{::person.address.streetC}}, {{::person.address.city}}<br />
-              {{::person.address.ukCounty}}, {{::person.address.ukCountry}} {{::person.address.zipcode}}
-            </div>
-          </div>
-          <div>
-            <strong>Phone:</strong> <a ng-href="tel:{{::person.phone}}">{{::person.phone}}</a>
-          </div>
-          <div>
-            <strong>Website:</strong> <a ng-href="http://{{::person.website}}">{{::person.website}}</a>
-          </div>
-          <div>
-            <strong>Company:</strong> {{::person.company.name}} - {{::person.company.catchPhrase}}
-          </div>
-          <div>
-            <strong>Posts:</strong>
-            <accordion>
-              <accordion-group ng-repeat="post in ::person.posts" heading="{{::post.sentence}}">
-                {{::post.paragraph}}
-              </accordion-group>
-            </accordion>
-          </div>
-          <div>
-            <button type="button" class="btn btn-default btn-sm pull-right" ng-click="increment(person, 'recompileCount')" style="margin-top:-10px">
-              Recompile Card {{::person.recompileCount}}
-            </button>
           </div>
         </div>
       </div>
