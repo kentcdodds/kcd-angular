@@ -58,7 +58,7 @@
       </ul>
     </div>
     <div class="controls row">
-      <div class="col-md-3">
+      <div class="col-md-4">
         <form class="form-inline">
           <div class="form-group">
             <label for="totalPeople">Total People</label>
@@ -66,8 +66,16 @@
             of {{totalPeopleCount}}
           </div>
         </form>
+        <button type="button" class="btn btn-danger btn-sm" ng-click="hideNormal=false;hideOneTime=true;">Regular Bindings</button>
+        <button type="button" class="btn btn-success btn-sm" ng-click="hideNormal=true;hideOneTime=false;">One-time bindings</button>
+        <div>
+          <strong>Angular Stats</strong>
+          <div kcd-ng-stats watch-count digest-length>
+            Watch Count: {{ngStats.watchCount}} | Avg. Digest Cycle: {{ngStats.digestLength}} ms
+          </div>
+        </div>
       </div>
-      <div class="col-md-9 hover-items">
+      <div class="col-md-8 hover-items">
         How does the watch count impact performance? Try hovering around here for a bit, show/hide the different lists.
         Change how many people are showing. Watch count has a big impact...
         <div>
@@ -207,6 +215,8 @@
     var faker = injector.get('faker');
 
     $scope.hovering = {};
+    $scope.hideNormal = true;
+    $scope.hideOneTime = true;
 
     $scope.recompilePeople = false;
     $scope.recompile = function() {

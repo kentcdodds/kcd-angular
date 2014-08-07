@@ -39,11 +39,7 @@ angular.module('kcd.site').directive('kcdWatchCount', function() {
       }
 
       function getWatchersFromScope(scope) {
-        if (scope) {
-          return scope.$$watchers || [];
-        } else {
-          return [];
-        }
+        return scope && scope.$$watchers ? scope.$$watchers : [];
       }
     }
   };
