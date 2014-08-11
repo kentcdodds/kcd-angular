@@ -8,7 +8,7 @@
       display: block;
       box-sizing: border-box;
       box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-      padding: 10px 10px 30px 10px;
+      padding: 10px 10px 50px 10px;
       margin: 18px;
       border-radius: 2px;
     }
@@ -32,7 +32,7 @@
       margin-bottom: 30px;
     }
     .kcd-recompile-example #totalPeople {
-      width: 70px;
+      width: 120px;
     }
     .kcd-recompile-example .hover-items .item {
       display: inline-block;
@@ -135,14 +135,6 @@
             <div>
               <strong>Company:</strong> {{person.company.name}} - {{person.company.catchPhrase}}
             </div>
-            <div>
-              <strong>Posts:</strong>
-              <accordion>
-                <accordion-group ng-repeat="post in person.posts" heading="{{post.sentence}}">
-                  {{post.paragraph}}
-                </accordion-group>
-              </accordion>
-            </div>
           </div>
         </div>
       </div>
@@ -190,17 +182,7 @@
                 <strong>Company:</strong> {{::person.company.name}} - {{::person.company.catchPhrase}}
               </div>
               <div>
-                <strong>Posts:</strong>
-                <div>
-                  <accordion>
-                    <accordion-group ng-repeat="post in ::person.posts" heading="{{::post.sentence}}">
-                      {{::post.paragraph}}
-                    </accordion-group>
-                  </accordion>
-                </div>
-              </div>
-              <div>
-                <button type="button" class="btn btn-default btn-sm pull-right" ng-click="increment(person, 'recompileCount')" style="margin-top:-10px">
+                <button type="button" class="btn btn-default btn-sm pull-right" ng-click="increment(person, 'recompileCount')" style="margin-top:10px">
                   Recompile Card {{::person.recompileCount}}
                 </button>
               </div>
@@ -232,7 +214,7 @@
     });
 
     $scope.users = [];
-    $scope.totalPeopleCount = 250;
+    $scope.totalPeopleCount = 5000;
     $scope.visiblePeople = Math.floor($scope.totalPeopleCount * 0.2);
 
     var totalPeople = [];

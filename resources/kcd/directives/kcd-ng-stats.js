@@ -34,16 +34,14 @@ angular.module('kcd.directives').directive('kcdNgStats', function($rootScope) {
           watchCountRoot = angular.element(document.documentElement);
         }
 
-        scope.$watch(function() {
-          if (timerNow() - lastRun.watchCount < waitTime) {
-            return scope.ngStats.watchCount;
-          } else {
-            lastRun = timerNow();
-            return getWatcherCount(watchCountRoot);
-          }
-        }, function(newVal) {
-          scope.ngStats.watchCount = newVal;
+        el.on('click', function() {
+          scope.$apply(function() {
+            scope.ngStats.watchCount = getWatcherCount(watchCountRoot);
+          });
         });
+        setTimeout(function() {
+          el.click();
+        }, 100); // give angular time to do stuff...
       }
 
       function setupDigestLength() {
