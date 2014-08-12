@@ -32,7 +32,7 @@
       margin-bottom: 30px;
     }
     .kcd-recompile-example #totalPeople {
-      width: 70px;
+      width: 120px;
     }
     .kcd-recompile-example .hover-items .item {
       display: inline-block;
@@ -66,11 +66,11 @@
             of {{totalPeopleCount}}
           </div>
         </form>
-        <button type="button" class="btn btn-danger btn-sm" ng-click="hideNormal=false;hideOneTime=true;">Regular Bindings</button>
-        <button type="button" class="btn btn-success btn-sm" ng-click="hideNormal=true;hideOneTime=false;">One-time bindings</button>
+        <button type="button" class="btn btn-danger btn-sm" ng-click="shared.hideNormal=false;shared.hideOneTime=true;">Regular Bindings</button>
+        <button type="button" class="btn btn-success btn-sm" ng-click="shared.hideNormal=true;shared.hideOneTime=false;">One-time bindings</button>
         <div>
           <strong>Angular Stats</strong>
-          <div kcd-ng-stats watch-count digest-length>
+          <div kcd-ng-stats watch-count="shared2.updateWatchCount" watch-count-root=".kcd-recompile-example-area" digest-length>
             Watch Count: {{ngStats.watchCount}} | Avg. Digest Cycle: {{ngStats.digestLength}} ms
           </div>
         </div>
@@ -96,13 +96,12 @@
       </div>
     </div>
     <hr />
-    <div class="row">
-      <div kcd-watch-count class="col-md-6">
+    <div class="row kcd-recompile-example-area">
+      <div class="col-md-6">
         <div class="text-align-center">
-          <strong>Normal Example</strong> <small><a ng-click="hideNormal=!hideNormal">{{hideNormal ? 'Show' : 'Hide'}}</a></small>
-          <div><span class="watch-count-container"></span> total watches</div>
+          <strong>Normal Example</strong> <small><a ng-click="shared.hideNormal=!shared.hideNormal">{{shared.hideNormal ? 'Show' : 'Hide'}}</a></small>
         </div>
-        <div ng-if="!hideNormal">
+        <div ng-if="!shared.hideNormal">
           <div ng-repeat="person in people" class="person-card">
             <div class="person-avatar-container">
               <img ng-src="{{person.picture}}" class="img-circle img-thumbnail" ng-click="increment(person, 'clicked')">
@@ -135,6 +134,9 @@
             <div>
               <strong>Company:</strong> {{person.company.name}} - {{person.company.catchPhrase}}
             </div>
+            <div tooltip="Example of heavy watcher...">
+              <strong>Favorite Crazy Number:</strong> {{getPersonsFavoriteNumber($index)}}
+            </div>
             <div>
               <strong>Posts:</strong>
               <accordion>
@@ -146,16 +148,12 @@
           </div>
         </div>
       </div>
-      <div kcd-watch-count class="col-md-6" kcd-recompile="recompilePeople" use-boolean>
+      <div class="col-md-6" kcd-recompile="shared.recompilePeople" use-boolean>
         <div class="text-align-center">
-          <strong>One Time Binding Example</strong> <small><a ng-click="hideOneTime=!hideOneTime">{{hideOneTime ? 'Show' : 'Hide'}}</a></small>
-          <div>
-            <strong class="watch-count-container"></strong> total watches
-            |
-            <a ng-click="recompile()">Recompile</a>
-          </div>
+          <strong>One Time Binding Example</strong> <small><a ng-click="shared.hideOneTime=!shared.hideOneTime">{{shared.hideOneTime ? 'Show' : 'Hide'}}</a></small>
+          <a ng-click="shared.recompilePeople=true">Recompile</a>
         </div>
-        <div ng-if="!hideOneTime">
+        <div ng-if="!shared.hideOneTime">
           <div ng-repeat="person in ::people" class="person-card">
             <div kcd-recompile="person.recompileCount">
               <div class="person-avatar-container">
@@ -189,15 +187,16 @@
               <div>
                 <strong>Company:</strong> {{::person.company.name}} - {{::person.company.catchPhrase}}
               </div>
+              <div tooltip="Example of heavy watcher...">
+                <strong>Favorite Crazy Number:</strong> {{::getPersonsFavoriteNumber($index)}}
+              </div>
               <div>
                 <strong>Posts:</strong>
-                <div>
-                  <accordion>
-                    <accordion-group ng-repeat="post in ::person.posts" heading="{{::post.sentence}}">
-                      {{::post.paragraph}}
-                    </accordion-group>
-                  </accordion>
-                </div>
+                <accordion>
+                  <accordion-group ng-repeat="post in ::person.posts" heading="{{::post.sentence}}">
+                    {{::post.paragraph}}
+                  </accordion-group>
+                </accordion>
               </div>
               <div>
                 <button type="button" class="btn btn-default btn-sm pull-right" ng-click="increment(person, 'recompileCount')" style="margin-top:-10px">
@@ -215,24 +214,40 @@
     var faker = injector.get('faker');
 
     $scope.hovering = {};
-    $scope.hideNormal = true;
-    $scope.hideOneTime = true;
+    $scope.shared = {}; // because binding to primitives makes you want to eat mud...
+    $scope.shared.hideNormal = true;
+    $scope.shared.hideOneTime = true;
+    $scope.shared.recompilePeople = false;
+    $scope.shared2 = {}; // not watched
+    $scope.shared2.updateWatchCount = false;
 
-    $scope.recompilePeople = false;
-    $scope.recompile = function() {
-      $scope.recompilePeople = true;
+    $scope.$watch('shared', function() {
+      $scope.shared2.updateWatchCount = true;
+    }, true);
+
+    $scope.getPersonsFavoriteNumber = function(seed) {
+      // do a crazy calculation to simulate long watcher...
+      var num = seed;
+      for (var i = 0; i < 99999; i++) {
+        if (i % 2) {
+          num = Math.cos(num / i);
+        } else {
+          num = Math.tan(num * i);
+        }
+      }
+      return num;
     };
 
     $scope.increment = function(person, thing) {
       person[thing]++;
     };
 
-    $scope.$watch('visiblePeople', function(_new, _old) {
+    $scope.$watch('visiblePeople', function(_new) {
       $scope.people = totalPeople.slice(0, _new);
     });
 
     $scope.users = [];
-    $scope.totalPeopleCount = 250;
+    $scope.totalPeopleCount = 100;
     $scope.visiblePeople = Math.floor($scope.totalPeopleCount * 0.2);
 
     var totalPeople = [];

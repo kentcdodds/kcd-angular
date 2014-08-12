@@ -22,12 +22,6 @@ angular.module('kcd.site').directive('kcdWatchCount', function() {
           var scopeWatchers = getWatchersFromScope(element.data().$scope);
           var watchers = scopeWatchers.concat(isolateWatchers);
           watcherCount += watchers.length;
-          var isKcdWatchCountWatcher = watchers.some(function(watcher) {
-            return watcher.exp === watchCountWatcher;
-          });
-          if (isKcdWatchCountWatcher) {
-            watcherCount = watcherCount - 1;
-          }
           angular.forEach(element.children(), function (childElement) {
             getWatchers(angular.element(childElement));
           });

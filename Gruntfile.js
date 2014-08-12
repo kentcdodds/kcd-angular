@@ -30,17 +30,8 @@ module.exports = function(grunt) {
       }
     },
     jade: {
-      local: {
-        options: {
-          data: function() {
-            return require('./builder/getIndexData')('local');
-          },
-          pretty: true
-        },
-        files: {
-          'index.html': ['builder/index.jade']
-        }
-      }
+      local: getJadeConfig('local'),
+      publish: getJadeConfig('publish')
     },
     watch: {
       stylus: {
@@ -60,9 +51,23 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('publish', 'gh-pages');
+  function getJadeConfig(env) {
+    return {
+      options: {
+        data: function() {
+          return require('./builder/getIndexData')(env);
+        },
+        pretty: true
+      },
+      files: {
+        'index.html': ['builder/index.jade']
+      }
+    };
+  }
 
-  grunt.registerTask('nohint', ['stylus', 'jade']);
+  grunt.registerTask('publish', ['jshint', 'stylus', 'jade:publish', 'gh-pages', 'jade:local']);
+
+  grunt.registerTask('nohint', ['stylus', 'jade:local']);
   grunt.registerTask('build', ['jshint', 'nohint']);
   // Default task(s).
   grunt.registerTask('default', 'build');

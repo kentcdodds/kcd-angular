@@ -1,8 +1,8 @@
-angular.module('kcd.directives').directive('kcdNgStats', function($rootScope) {
+angular.module('kcd.directives').directive('kcdNgStats', function($rootScope, $parse) {
   'use strict';
   var waitTime = 200;
   // define the timer function to use based upon whether or not 'performance is available'
-  var timerNow = window.performance ? function() { return performance.now(); } : function() { return Date.now(); };
+  var timerNow = window.performance ? function() { return window.performance.now(); } : function() { return Date.now(); };
 
   return {
     link: function(scope, el, attrs) {
@@ -28,22 +28,48 @@ angular.module('kcd.directives').directive('kcdNgStats', function($rootScope) {
           if (attrs.watchCountRoot === 'this') {
             watchCountRoot = el;
           } else {
-            watchCountRoot = angular.element(document.querySelectorAll(attrs.watchCountRoot)[0]);
+            // In the case this directive is being compiled and it's not in the dom,
+            // we're going to do the find from the root of what we have...
+            var rootParent = findRootOfElement(el).find(attrs.watchCountRoot);
+            watchCountRoot = angular.element(rootParent);
           }
         } else {
-          watchCountRoot = angular.element(document.documentElement);
+          watchCountRoot = angular.element('html');
         }
 
-        scope.$watch(function() {
-          if (timerNow() - lastRun.watchCount < waitTime) {
-            return scope.ngStats.watchCount;
-          } else {
-            lastRun = timerNow();
-            return getWatcherCount(watchCountRoot);
-          }
-        }, function(newVal) {
-          scope.ngStats.watchCount = newVal;
-        });
+        if (!watchCountRoot) {
+          throw new Error('no element at selector: ' + attrs.watchCountRoot);
+        }
+
+        el.on('click', updateWatchCount);
+
+        setTimeout(function() {
+          el.click();
+        }, 100); // give angular time to do stuff...
+
+        if (attrs.watchCount) {
+          scope.$watch(attrs.watchCount, function(val) {
+            if (val) {
+              setTimeout(function waitForBindonceToFinish() {
+                updateWatchCount();
+              }, 100);
+              $parse(attrs.watchCount).assign(scope, false);
+            }
+          });
+        }
+
+        function updateWatchCount() {
+          scope.ngStats.watchCount = getWatcherCount(watchCountRoot);
+          scope.$apply();
+        }
+      }
+
+      function findRootOfElement(el) {
+        var parent = el[0];
+        while (parent.parentElement) {
+          parent = parent.parentElement;
+        }
+        return angular.element(parent);
       }
 
       function setupDigestLength() {
