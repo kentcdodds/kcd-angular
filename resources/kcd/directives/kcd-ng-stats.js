@@ -5,6 +5,7 @@ angular.module('kcd.directives').directive('kcdNgStats', function($rootScope, $p
   var timerNow = window.performance ? function() { return window.performance.now(); } : function() { return Date.now(); };
 
   return {
+    scope: true,
     link: function(scope, el, attrs) {
       var lastRun = {
         watchCount: 0,
@@ -30,14 +31,14 @@ angular.module('kcd.directives').directive('kcdNgStats', function($rootScope, $p
           } else {
             // In the case this directive is being compiled and it's not in the dom,
             // we're going to do the find from the root of what we have...
-            var rootParent = findRootOfElement(el).find(attrs.watchCountRoot);
+            var rootParent = findRootOfElement(el).find('*').andSelf().filter(attrs.watchCountRoot);
             watchCountRoot = angular.element(rootParent);
           }
         } else {
           watchCountRoot = angular.element('html');
         }
 
-        if (!watchCountRoot) {
+        if (!watchCountRoot.length) {
           throw new Error('no element at selector: ' + attrs.watchCountRoot);
         }
 
@@ -104,6 +105,9 @@ angular.module('kcd.directives').directive('kcdNgStats', function($rootScope, $p
   // Utilities
   function getWatcherCount(element, watcherCount) {
     watcherCount = watcherCount || 0;
+    if (!element.length) {
+      return watcherCount;
+    }
     var isolateWatchers = getWatchersFromScope(element.data().$isolateScope);
     var scopeWatchers = getWatchersFromScope(element.data().$scope);
     var watchers = scopeWatchers.concat(isolateWatchers);

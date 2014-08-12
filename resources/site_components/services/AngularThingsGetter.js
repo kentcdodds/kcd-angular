@@ -10,7 +10,7 @@ angular.module('kcd.site').factory('AngularThingsGetter', function(_) {
     hljs: 'http://highlightjs.org/',
     moment: 'http://momentjs.com/'
   };
-  var featured = ['kcd-recompile', 'kcd-custom-validation', 'kcdDynamicFilter'];
+  var featured = ['kcd-recompile', 'kcd-remove-watchers', 'kcd-custom-validation', 'kcdDynamicFilter'];
 
   var thingMap = {
     filters: null
