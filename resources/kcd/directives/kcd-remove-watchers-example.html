@@ -1,0 +1,128 @@
+<div class="kcd-remove-watchers-example">
+  <style>
+    .kcd-remove-watchers-example .person-card {
+      display: block;
+      box-sizing: border-box;
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+      padding: 10px;
+      margin: 18px;
+      border-radius: 2px;
+      width: 500px;
+    }
+    .kcd-remove-watchers-example .person-card .person-avatar-container img {
+      height: 128px;
+      width: 128px;
+    }
+  </style>
+  <div class="demo-container">
+    <div class="row">
+      <div class="col-md-6 normal-side">
+        <div class="text-center">
+          <strong>Normal</strong>
+          <div kcd-ng-stats watch-count watch-count-root=".normal-side">
+            Watch Count: {{ngStats.watchCount}}
+          </div>
+        </div>
+        <div class="person-card">
+          <div>
+            <div class="person-avatar-container text-center">
+              <img ng-src="{{person.picture}}" class="img-circle img-thumbnail" ng-click="increment(person, 'clicked')">
+            </div>
+            <div>
+              <strong>Name:</strong> {{person.name}}
+            </div>
+            <div>
+              <strong>Username:</strong> {{person.username}}
+            </div>
+            <div>
+              <strong>Email:</strong> <a ng-href="mailto:{{person.email}}">{{person.email}}</a>
+            </div>
+            <div>
+              <strong>Address:</strong> <a ng-href="http://maps.google.com/?q={{person.address.geo.lat}},{{person.address.geo.lng}}">Map</a>
+              <div>
+                {{person.address.streetC}}, {{person.address.city}}<br />
+                {{person.address.ukCounty}}, {{person.address.ukCountry}} {{person.address.zipcode}}
+              </div>
+            </div>
+            <div>
+              <strong>Phone:</strong> <a ng-href="tel:{{person.phone}}">{{person.phone}}</a>
+            </div>
+            <div>
+              <strong>Website:</strong> <a ng-href="http://{{person.website}}">{{person.website}}</a>
+            </div>
+            <div>
+              <strong>Company:</strong> {{person.company.name}} - {{person.company.catchPhrase}}
+            </div>
+            <div>
+              <strong>Posts:</strong>
+              <accordion>
+                <accordion-group ng-repeat="post in person.posts" heading="{{post.sentence}}">
+                  {{post.paragraph}}
+                </accordion-group>
+              </accordion>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 watchers-removed-side">
+        <div class="text-center">
+          <strong>Watchers Removed</strong>
+          <div kcd-ng-stats watch-count watch-count-root=".watchers-removed-side">
+            Watch Count: {{ngStats.watchCount}}
+          </div>
+        </div>
+        <div class="person-card" kcd-remove-watchers save-expressions="shared.saveExpressions">
+          <div>
+            <div class="person-avatar-container text-center">
+              <img ng-src="{{person.picture}}" class="img-circle img-thumbnail" ng-click="increment(person, 'clicked')">
+            </div>
+            <div>
+              <strong>Name:</strong> {{person.name}}
+            </div>
+            <div>
+              <strong>Username:</strong> {{person.username}}
+            </div>
+            <div>
+              <strong>Email:</strong> <a ng-href="mailto:{{person.email}}">{{person.email}}</a>
+            </div>
+            <div>
+              <strong>Address:</strong> <a ng-href="http://maps.google.com/?q={{person.address.geo.lat}},{{person.address.geo.lng}}">Map</a>
+              <div>
+                {{person.address.streetC}}, {{person.address.city}}<br />
+                {{person.address.ukCounty}}, {{person.address.ukCountry}} {{person.address.zipcode}}
+              </div>
+            </div>
+            <div>
+              <strong>Phone:</strong> <a ng-href="tel:{{person.phone}}">{{person.phone}}</a>
+            </div>
+            <div>
+              <strong>Website:</strong> <a ng-href="http://{{person.website}}">{{person.website}}</a>
+            </div>
+            <div>
+              <strong>Company:</strong> {{person.company.name}} - {{person.company.catchPhrase}}
+            </div>
+            <div>
+              <strong>Posts:</strong>
+              <accordion>
+                <accordion-group ng-repeat="post in person.posts" heading="{{post.sentence}}">
+                  {{post.paragraph}}
+                </accordion-group>
+              </accordion>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    var injector = angular.element('html').injector();
+    var faker = injector.get('faker');
+
+    $scope.shared = {}; // because binding to primitives makes you want to eat mud...
+    $scope.shared.saveExpressions = [
+      '!isOpen'
+    ];
+    $scope.person = faker.Helpers.createCard();
+    $scope.person.picture = faker.Image.avatar();
+  </script>
+</div>

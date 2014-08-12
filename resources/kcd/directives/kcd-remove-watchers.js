@@ -1,10 +1,12 @@
 angular.module('kcd.directives').directive('kcdRemoveWatchers', function($parse, _) {
   'use strict';
   return {
+    scope: {
+      saveExpressions: '='
+    },
     link: function kcdRemoveWatchersLink(scope, el, attrs) {
       setTimeout(function() {
-        var saveExpressions = $parse(attrs.saveExpressions)(scope);
-        removeWatchers(el, saveExpressions);
+        removeWatchers(el, scope.saveExpressions);
       });
     }
   };
