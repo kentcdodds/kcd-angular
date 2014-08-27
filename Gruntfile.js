@@ -63,7 +63,7 @@ module.exports = function(grunt) {
       options: {
         message: 'Auto-generated commit'
       },
-      src: ['**', '!node_modules/**', '!builder/**', '!bower.json', '!Gruntfile.js', '!resources/**/*Spec.js']
+      src: ['**', '!node_modules/**', '!builder/**', '!bower.json', '!Gruntfile.js']
     }
   });
 
