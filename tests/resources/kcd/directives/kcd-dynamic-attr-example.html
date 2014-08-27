@@ -1,0 +1,75 @@
+<div class="kcd-dynamic-name-example">
+  <style>
+    label {
+      font-weight: normal;
+      margin-right: 6px;
+    }
+    label.checkbox-label {
+      cursor: pointer;
+    }
+    form.ng-invalid .title {
+      color: #EB6864;
+    }
+    form .title small {
+      display: none;
+      font-weight: normal;
+    }
+    form.ng-invalid .title small {
+      display: inline;
+    }
+  </style>
+  <div>
+    <div class="row">
+      <h3>Instructions</h3>
+      Play around with the form groups below, notice that the second has features that are not working with the first
+      because the first is not using kcd-dynamic-attr. These broken features are:
+      <ul>
+        <li>Field Required warning doesn't show</li>
+        <li>The span below the input is not binding to the $error of the input</li>
+      </ul>
+    </div>
+    <div class="row">
+      <h3>Not using kcd-dynamic-attr <small>(doesn't work)</small></h3>
+      <form ng-repeat="form in ::forms" name="{{'myForm' + $index}}" class="col-md-4">
+        <strong class="title">Form {{::$index}} <small>Something's wrong...</small></strong>
+        <div ng-repeat="item in ::form track by $index" class="form-group" ng-class="{{'{&quot;has-error&quot;: myForm' + $parent.$index + '[\'myInput' + $index + '\'].$invalid}'}}">
+          <label class="checkbox-label">
+            <input type="checkbox" ng-model="item.checkbox" /> Require field {{::$index}} on form {{::$parent.$index}}
+          </label>
+          <br/>
+          <label class="control-label">
+            Field {{::$index}}
+            <small ng-show="{{'myForm' + $parent.$index + '[\'myInput' + $index + '\'].$invalid'}}">Field Required</small>
+            <input type="text" class="form-control" ng-model="item.field" ng-required="item.checkbox" name="{{'myInput' + $index}}" />
+            <span ng-bind="{{'myForm' + $parent.$index + '[\'myInput' + $index + '\'].$error | json'}}"></span>
+          </label>
+        </div>
+      </form>
+    </div>
+    <div class="row">
+      <h3>Using kcd-dynamic-attr <small>(works great)</small></h3>
+      <form ng-repeat="form in ::forms" kcd-dynamic-attr="name" name="'myForm' + $index" class="col-md-4">
+        <strong class="title">Form {{::$index}} <small>Something's wrong...</small></strong>
+        <div ng-repeat="item in ::form track by $index" class="form-group" kcd-dynamic-attr="ngClass" ng-class="'{&quot;has-error&quot;: myForm' + $parent.$index + '[\'myInput' + $index + '\'].$invalid}'">
+          <label class="checkbox-label">
+            <input type="checkbox" ng-model="item.checkbox" /> Require field {{::$index}} on form {{::$parent.$index}}
+          </label>
+          <br/>
+          <label class="control-label">
+            Field {{::$index}}
+            <small kcd-dynamic-attr="ngShow" ng-show="'myForm' + $parent.$index + '[\'myInput' + $index + '\'].$invalid'">Field Required</small>
+            <input type="text" class="form-control" ng-model="item.field" ng-required="item.checkbox" kcd-dynamic-attr="name" name="'myInput' + $index" />
+            <span kcd-dynamic-attr="ngBind" ng-bind="'myForm' + $parent.$index + '[\'myInput' + $index + '\'].$error | json'"></span>
+          </label>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script>
+    $scope.forms = [
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null]
+    ];
+  </script>
+</div>

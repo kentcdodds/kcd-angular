@@ -1,0 +1,263 @@
+<div class="kcd-recompile-example">
+  <style>
+    .kcd-recompile-example .buttons button {
+      margin-left: 6px;
+      margin-right: 6px;
+    }
+    .kcd-recompile-example .person-card {
+      display: block;
+      box-sizing: border-box;
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+      padding: 10px 10px 30px 10px;
+      margin: 18px;
+      border-radius: 2px;
+    }
+    .kcd-recompile-example .person-card .person-avatar-container {
+      text-align: center;
+    }
+    .kcd-recompile-example .person-card .person-avatar-container img {
+      height: 128px;
+      width: 128px;
+      cursor: pointer;
+    }
+    .kcd-recompile-example .controls {
+      margin-top: 14px;
+    }
+    .kcd-recompile-example .margin-vertical-small {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .kcd-recompile-example .margin-vertical-large {
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
+    .kcd-recompile-example #totalPeople {
+      width: 120px;
+    }
+    .kcd-recompile-example .hover-items .item {
+      display: inline-block;
+      padding: 20px;
+    }
+    .kcd-recompile-example .hover-items .item.hovering {
+      background-color: #DDD;
+    }
+  </style>
+  <div>
+    <div>
+      Some things to try:
+      <ul>
+        <li>
+          <strong>Add/Remove/Recompile</strong>: Notice the difference in the total people and watches counts.
+          If you had a thousand of these, or more expressions in each, the watch count can go up pretty quick...
+        </li>
+        <li><strong>Edit</strong>: Try removing the "::" before some of the expressions. You can have watches inside of the kcd-recompile directive.</li>
+        <li>
+          <strong>Click Avatars</strong>: Try clicking the avatars. Notice that the count is incremented only on the normal example side.
+          When you recompile, the other side gets that too. Try clicking the one time binding example's avatars...
+        </li>
+      </ul>
+    </div>
+    <div class="controls row">
+      <div class="col-md-4">
+        <form class="form-inline">
+          <div class="form-group">
+            <label for="totalPeople">Total People</label>
+            <input type="number" class="form-control" id="totalPeople" placeholder="Total People" ng-model="visiblePeople">
+            of {{totalPeopleCount}}
+          </div>
+        </form>
+        <button type="button" class="btn btn-danger btn-sm" ng-click="shared.hideNormal=false;shared.hideOneTime=true;">Regular Bindings</button>
+        <button type="button" class="btn btn-success btn-sm" ng-click="shared.hideNormal=true;shared.hideOneTime=false;">One-time bindings</button>
+        <div>
+          <strong>Angular Stats</strong>
+          <div kcd-ng-stats watch-count="shared2.updateWatchCount" watch-count-root=".kcd-recompile-example-area" digest-length>
+            Watch Count: {{ngStats.watchCount}} | Avg. Digest Cycle: {{ngStats.digestLength}} ms
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8 hover-items">
+        How does the watch count impact performance? Try hovering around here for a bit, show/hide the different lists.
+        Change how many people are showing. Watch count has a big impact...
+        <div>
+          <div ng-repeat="item in ::[1,2,3,4]" class="item" ng-class="{'hovering': hovering[item]}" ng-mouseenter="hovering[item]=true" ng-mouseleave="hovering[item]=false">
+            Hover over {{::item}}
+          </div>
+        </div>
+        <div>
+          <div ng-repeat="item in ::[5,6,7,8]" class="item" ng-class="{'hovering': hovering[item]}" ng-mouseenter="hovering[item]=true" ng-mouseleave="hovering[item]=false">
+            Hover over {{::item}}
+          </div>
+        </div>
+        <div>
+          <div ng-repeat="item in ::[9,10,11,12]" class="item" ng-class="{'hovering': hovering[item]}" ng-mouseenter="hovering[item]=true" ng-mouseleave="hovering[item]=false">
+            Hover over {{::item}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="row kcd-recompile-example-area">
+      <div class="col-md-6">
+        <div class="text-align-center">
+          <strong>Normal Example</strong> <small><a ng-click="shared.hideNormal=!shared.hideNormal">{{shared.hideNormal ? 'Show' : 'Hide'}}</a></small>
+        </div>
+        <div ng-if="!shared.hideNormal">
+          <div ng-repeat="person in people" class="person-card">
+            <div class="person-avatar-container">
+              <img ng-src="{{person.picture}}" class="img-circle img-thumbnail" ng-click="increment(person, 'clicked')">
+              <div class="margin-vertical-small">
+                <small>You've clicked {{person.name}} {{person.clicked || 0}} times</small>
+              </div>
+            </div>
+            <div>
+              <strong>Name:</strong> {{person.name}}
+            </div>
+            <div>
+              <strong>Username:</strong> {{person.username}}
+            </div>
+            <div>
+              <strong>Email:</strong> <a ng-href="mailto:{{person.email}}">{{person.email}}</a>
+            </div>
+            <div>
+              <strong>Address:</strong> <a ng-href="http://maps.google.com/?q={{person.address.geo.lat}},{{person.address.geo.lng}}">Map</a>
+              <div>
+                {{person.address.streetC}}, {{person.address.city}}<br />
+                {{person.address.ukCounty}}, {{person.address.ukCountry}} {{person.address.zipcode}}
+              </div>
+            </div>
+            <div>
+              <strong>Phone:</strong> <a ng-href="tel:{{person.phone}}">{{person.phone}}</a>
+            </div>
+            <div>
+              <strong>Website:</strong> <a ng-href="http://{{person.website}}">{{person.website}}</a>
+            </div>
+            <div>
+              <strong>Company:</strong> {{person.company.name}} - {{person.company.catchPhrase}}
+            </div>
+            <div tooltip="Example of heavy watcher...">
+              <strong>Favorite Crazy Number:</strong> {{getPersonsFavoriteNumber($index)}}
+            </div>
+            <div>
+              <strong>Posts:</strong>
+              <accordion>
+                <accordion-group ng-repeat="post in person.posts" heading="{{post.sentence}}">
+                  {{post.paragraph}}
+                </accordion-group>
+              </accordion>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" kcd-recompile="shared.recompilePeople" use-boolean>
+        <div class="text-align-center">
+          <strong>One Time Binding Example</strong> <small><a ng-click="shared.hideOneTime=!shared.hideOneTime">{{shared.hideOneTime ? 'Show' : 'Hide'}}</a></small>
+          <a ng-click="shared.recompilePeople=true">Recompile</a>
+        </div>
+        <div ng-if="!shared.hideOneTime">
+          <div ng-repeat="person in ::people" class="person-card">
+            <div kcd-recompile="person.recompileCount">
+              <div class="person-avatar-container">
+                <img ng-src="{{::person.picture}}" class="img-circle img-thumbnail" ng-click="increment(person, 'clicked')">
+                <div class="margin-vertical-small">
+                  <small>You've clicked {{::person.name}} {{::person.clicked || 0}} times</small>
+                </div>
+              </div>
+              <div>
+                <strong>Name:</strong> {{::person.name}}
+              </div>
+              <div>
+                <strong>Username:</strong> {{::person.username}}
+              </div>
+              <div>
+                <strong>Email:</strong> <a ng-href="mailto:{{::person.email}}">{{::person.email}}</a>
+              </div>
+              <div>
+                <strong>Address:</strong> <a ng-href="http://maps.google.com/?q={{::person.address.geo.lat}},{{::person.address.geo.lng}}">Map</a>
+                <div>
+                  {{::person.address.streetC}}, {{::person.address.city}}<br />
+                  {{::person.address.ukCounty}}, {{::person.address.ukCountry}} {{::person.address.zipcode}}
+                </div>
+              </div>
+              <div>
+                <strong>Phone:</strong> <a ng-href="tel:{{::person.phone}}">{{::person.phone}}</a>
+              </div>
+              <div>
+                <strong>Website:</strong> <a ng-href="http://{{::person.website}}">{{::person.website}}</a>
+              </div>
+              <div>
+                <strong>Company:</strong> {{::person.company.name}} - {{::person.company.catchPhrase}}
+              </div>
+              <div tooltip="Example of heavy watcher...">
+                <strong>Favorite Crazy Number:</strong> {{::getPersonsFavoriteNumber($index)}}
+              </div>
+              <div>
+                <strong>Posts:</strong>
+                <accordion>
+                  <accordion-group ng-repeat="post in ::person.posts" heading="{{::post.sentence}}">
+                    {{::post.paragraph}}
+                  </accordion-group>
+                </accordion>
+              </div>
+              <div>
+                <button type="button" class="btn btn-default btn-sm pull-right" ng-click="increment(person, 'recompileCount')" style="margin-top:-10px">
+                  Recompile Card {{::person.recompileCount}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    var injector = angular.element('html').injector();
+    var faker = injector.get('faker');
+
+    $scope.hovering = {};
+    $scope.shared = {}; // because binding to primitives makes you want to eat mud...
+    $scope.shared.hideNormal = true;
+    $scope.shared.hideOneTime = true;
+    $scope.shared.recompilePeople = false;
+    $scope.shared2 = {}; // not watched
+    $scope.shared2.updateWatchCount = false;
+
+    $scope.$watch('shared', function() {
+      $scope.shared2.updateWatchCount = true;
+    }, true);
+
+    $scope.getPersonsFavoriteNumber = function(seed) {
+      // do a crazy calculation to simulate long watcher...
+      var num = seed;
+      for (var i = 0; i < 99999; i++) {
+        if (i % 2) {
+          num = Math.cos(num / i);
+        } else {
+          num = Math.tan(num * i);
+        }
+      }
+      return num;
+    };
+
+    $scope.increment = function(person, thing) {
+      person[thing]++;
+    };
+
+    $scope.$watch('visiblePeople', function(_new) {
+      $scope.people = totalPeople.slice(0, _new);
+    });
+
+    $scope.users = [];
+    $scope.totalPeopleCount = 100;
+    $scope.visiblePeople = Math.floor($scope.totalPeopleCount * 0.2);
+
+    var totalPeople = [];
+    var user = null;
+    for (var i = 0; i < $scope.totalPeopleCount; i++) {
+      user = faker.Helpers.createCard();
+      user.clicked = 0;
+      user.recompileCount = 0;
+      user.picture = faker.Image.avatar();
+      totalPeople.push(user);
+    }
+  </script>
+</div>

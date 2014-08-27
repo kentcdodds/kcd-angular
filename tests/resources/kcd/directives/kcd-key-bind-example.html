@@ -1,0 +1,26 @@
+<div>
+  <div>
+    Try typing stuff... <small>(like enter, escape, k, or ↓)</small>
+    <input class="form-control" ng-model="text" kcd-key-bind="{ enter: 'onEnterPressed()', esc: 'onEscapePressed(text)', k: 'onKPressed()', 40: 'onDownArrowPressed()' }" type="text">
+    <div ng-show="kPressedCount">
+      You have pressed "k" {{kPressedCount}} times.
+    </div>
+  </div>
+
+  <script>
+    $scope.kPressedCount = 0;
+    $scope.onEnterPressed = function() {
+      $scope.text = null;
+    };
+    $scope.onEscapePressed = function(text) {
+      alert('You typed: ' + (text || 'nothing...'));
+      $scope.text = null;
+    };
+    $scope.onKPressed = function() {
+      $scope.kPressedCount++;
+    };
+    $scope.onDownArrowPressed = function() {
+      alert('Down arrow pressed');
+    };
+  </script>
+</div>

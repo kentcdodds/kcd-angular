@@ -1,0 +1,83 @@
+
+<html ng-app="kcd.site" lang="en">
+  <head>
+    <title>KCD Module tests</title>
+    <meta name="title" content="KCD Module tests"/>
+    <meta name="description" content="Tests for KCD Modules"/>
+    <meta name="keywords" content="angularjs, angular, angular directives, angular services, angular filters"/>
+    <meta name="author" content="Kent C. Dodds"/>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="resources/bower_components/mocha/mocha.css"/>
+    <!-- load critical scripts-->
+    <script src="resources/bower_components/jquery/dist/jquery.js"></script>
+    <script src="resources/bower_components/angular/angular.js"></script>
+  </head>
+  <body>
+    <div id="mocha">
+      <h1>kcd-module tests</h1>
+    </div>
+    <div id="messages"></div>
+    <div id="fixtures"></div>
+    <script src="resources/bower_components/mocha/mocha.js"></script>
+    <script src="resources/bower_components/chai/chai.js"></script>
+    <script>
+      mocha.setup('bdd');
+      mocha.reporter('html');
+    </script>
+    <!-- load other scripts-->
+    <script src="resources/bower_components/angular-mocks/angular-mocks.js"></script>
+    <script src="resources/bower_components/lodash/dist/lodash.js"></script>
+    <script src="resources/bower_components/toastr/toastr.min.js"></script>
+    <script src="resources/bower_components/marked/lib/marked.js"></script>
+    <script src="resources/bower_components/Faker/minfaker.js"></script>
+    <script src="resources/bower_components/moment/moment.js"></script>
+    <script src="resources/non_bower_components/highlight.js/highlight.pack.js"></script>
+    <script src="resources/bower_components/codemirror/lib/codemirror.js"></script>
+    <script src="resources/bower_components/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="resources/bower_components/codemirror/mode/xml/xml.js"></script>
+    <script src="resources/bower_components/codemirror/mode/javascript/javascript.js"></script>
+    <script src="resources/bower_components/codemirror/mode/css/css.js"></script>
+    <script src="resources/bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="resources/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="resources/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="resources/bower_components/angular-ui-codemirror/ui-codemirror.min.js"></script>
+    <script src="resources/bower_components/angularjs-scope.safeapply/src/Scope.SafeApply.min.js"></script>
+    <script src="resources/kcd/constants/app.js"></script>
+    <script src="resources/kcd/services/app.js"></script>
+    <script src="resources/kcd/services/JWTAuthInterceptor.js"></script>
+    <script src="resources/kcd/filters/app.js"></script>
+    <script src="resources/kcd/filters/kcdDate.js"></script>
+    <script src="resources/kcd/filters/kcdDynamicFilter.js"></script>
+    <script src="resources/kcd/filters/kcdMdToHtml.js"></script>
+    <script src="resources/kcd/directives/app.js"></script>
+    <script src="resources/kcd/directives/kcd-autofocus.js"></script>
+    <script src="resources/kcd/directives/kcd-custom-validation.js"></script>
+    <script src="resources/kcd/directives/kcd-dynamic-attr.js"></script>
+    <script src="resources/kcd/directives/kcd-dynamic-attrSpec.js"></script>
+    <script src="resources/kcd/directives/kcd-highlight-code.js"></script>
+    <script src="resources/kcd/directives/kcd-input-match.js"></script>
+    <script src="resources/kcd/directives/kcd-key-bind.js"></script>
+    <script src="resources/kcd/directives/kcd-ng-stats.js"></script>
+    <script src="resources/kcd/directives/kcd-recompile.js"></script>
+    <script src="resources/kcd/directives/kcd-remove-watchers.js"></script>
+    <script src="resources/kcd/directives/kcd-select-all-on-focus.js"></script>
+    <script src="resources/kcd/directives/kcd-time-binding.js"></script>
+    <script src="resources/kcd/app.js"></script>
+    <script src="resources/site_components/app.js"></script>
+    <script src="resources/site_components/MainCtrl/MainCtrl.js"></script>
+    <script src="resources/site_components/ThingCtrl/ThingCtrl.js"></script>
+    <script src="resources/site_components/constants/app.js"></script>
+    <script src="resources/site_components/directives/kcd-clipboard-copy.js"></script>
+    <script src="resources/site_components/directives/kcd-thing-example.js"></script>
+    <script src="resources/site_components/directives/kcd-watch-count.js"></script>
+    <script src="resources/site_components/filters/linkifyDependencies.js"></script>
+    <script src="resources/site_components/one-off/long-errors.js"></script>
+    <script src="resources/site_components/services/AngularThingsGetter.js"></script>
+    <script>
+      // Only tests run in real browser, injected script run if options.run == true
+      if (navigator.userAgent.indexOf('PhantomJS') < 0) {
+        mocha.run();
+      }
+    </script>
+  </body>
+</html>

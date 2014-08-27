@@ -1,0 +1,27 @@
+<div class="main-ctrl">
+  <div class="title">
+    <h1 ui-sref="root.default">"kcd" Angular Module</h1>
+    <h2><small>Angular things I made (or found/modified) and think are useful.</small></h2>
+  </div>
+  <div class="row">
+    <div class="col-md-3 col-sm-3">
+      <h3>Angular Things</h3>
+      <div class="search-container">
+        <i class="fa fa-search"></i>
+        <input type="search" class="form-control input-sm" placeholder="Search Angular Things" ng-model="thingSearch" ng-keydown="onSearchEntered($event)" autofocus>
+      </div>
+      <div ng-repeat="group in ::angularThings" class="thing-group">
+        <h4 class="group-label" popover="{{group.popover}}" popover-trigger="mouseenter" popover-placement="right">{{::group.name}}</h4>
+        <ul>
+          <li ng-repeat="thing in group.things | filter:thingSearch" class="thing">
+            <a ui-sref="root.thing({thing: thing.name})" ng-class="{'featured': thing.isFeatured, 'selected': thing.name === selected}">{{::thing.name}}</a>
+          </li>
+        </ul>
+      </div>
+      <small><span class="featured">featured</span> (because I think it's pretty neat)</small>
+    </div>
+    <div class="col-md-9 col-sm-9 things-view-container">
+      <div ui-view></div>
+    </div>
+  </div>
+</div>

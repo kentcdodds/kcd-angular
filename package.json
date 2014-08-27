@@ -11,8 +11,10 @@
     "grunt-contrib-stylus": "^0.17.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-gh-pages": "^0.9.1",
+    "grunt-mocha": "^0.4.11",
     "load-grunt-tasks": "^0.6.0",
     "lodash-node": "^2.4.1",
+    "mocha": "^1.21.4",
     "time-grunt": "^0.3.2"
   },
   "scripts": {

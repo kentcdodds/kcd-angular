@@ -1,0 +1,50 @@
+.main-ctrl
+  .featured
+    color #5166D1
+  .title
+    text-align center
+    h1
+      display inline-block
+      cursor pointer
+  .search-container
+    position relative
+    i
+      position absolute
+      top 6px
+      left 8px
+      color #A5A5A5
+    input
+      padding-left 28px
+  .thing-group
+    .group-label
+      display inline-block
+    .thing
+      .selected
+        font-weight bold
+  /* ui-view animation */
+  .things-view-container
+    position relative
+    [ui-view]
+      width 100%
+      &.ng-enter, &.ng-leave
+        position absolute
+        padding-right 30px
+        top 0
+        opacity 0
+        transition all .3s ease-in-out
+      &.ng-enter
+        position absolute
+        padding-right 30px
+        opacity 0
+        top 40px
+      &.ng-enter-active
+        top 0
+        opacity 1
+      &.ng-leave
+        top 0
+        opacity 1
+      &.ng-leave-active
+        position absolute
+        padding-right 30px
+        opacity 0
+        top 30px
