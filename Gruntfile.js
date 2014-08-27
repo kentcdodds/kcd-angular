@@ -32,11 +32,11 @@ module.exports = function(grunt) {
     jade: {
       local: getJadeConfig('local'),
       publish: getJadeConfig('publish'),
-      tests: getJadeConfig('test')
+      test: getJadeConfig('test')
     },
     mocha: {
       all: {
-        src: ['tests/testrunner.html']
+        src: ['tests/index.html']
       },
       options: {
         run: true
@@ -73,7 +73,7 @@ module.exports = function(grunt) {
     };
     if (env === 'test') {
       files = {
-        'tests/testrunner.html': ['builder/testrunner.jade']
+        'tests/index.html': ['builder/testrunner.jade']
       };
     }
     return {
@@ -87,10 +87,12 @@ module.exports = function(grunt) {
     };
   }
 
-  grunt.registerTask('publish', ['jshint', 'stylus', 'jade:publish', 'gh-pages', 'jade:local']);
+  grunt.registerTask('ensureTest', ['jade:test', 'mocha']);
+
+  grunt.registerTask('publish', ['jshint', 'ensureTest', 'stylus', 'jade:publish', 'gh-pages', 'jade:local']);
 
   grunt.registerTask('nohint', ['stylus', 'jade:local']);
-  grunt.registerTask('build', ['jshint', 'nohint']);
+  grunt.registerTask('build', ['jshint', 'ensureTest', 'nohint']);
   // Default task(s).
   grunt.registerTask('default', 'build');
 
