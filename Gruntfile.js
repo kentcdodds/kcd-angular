@@ -31,27 +31,51 @@ module.exports = function(grunt) {
     },
     jade: {
       local: getJadeConfig('local'),
-      publish: getJadeConfig('publish')
+      publish: getJadeConfig('publish'),
+      tests: getJadeConfig('test')
+    },
+    mocha: {
+      all: {
+        src: ['tests/testrunner.html']
+      },
+      options: {
+        run: true
+      }
     },
     watch: {
+      jade: {
+        options: {
+          event: ['added', 'deleted']
+        },
+        files: [ kcd + '**/*.js', sc + '**/*.js' ],
+        tasks: 'jade'
+      },
       stylus: {
         files: [kcd + '**/*.styl', sc + '**/*.styl', 'Gruntfile.js'],
         tasks: 'stylus'
       },
-      jade: {
-        files: ['builder/**', 'Gruntfile.js'],
-        tasks: 'jade'
+      dev: {
+        files: [ kcd + '**/*.js', sc + '**/*.js' ],
+        tasks: [ 'jshint', 'mocha' ]
       }
     },
     'gh-pages': {
       options: {
         message: 'Auto-generated commit'
       },
-      src: ['**', '!node_modules/**', '!builder/**', '!bower.json', '!Gruntfile.js']
+      src: ['**', '!node_modules/**', '!builder/**', '!bower.json', '!Gruntfile.js', '!resources/**/*Spec.js']
     }
   });
 
   function getJadeConfig(env) {
+    var files = {
+      'index.html': ['builder/index.jade']
+    };
+    if (env === 'test') {
+      files = {
+        'tests/testrunner.html': ['builder/testrunner.jade']
+      };
+    }
     return {
       options: {
         data: function() {
@@ -59,9 +83,7 @@ module.exports = function(grunt) {
         },
         pretty: true
       },
-      files: {
-        'index.html': ['builder/index.jade']
-      }
+      files: files
     };
   }
 

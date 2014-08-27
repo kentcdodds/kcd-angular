@@ -85,16 +85,34 @@ module.exports = function(env) {
   function getSection(name) {
     var appJs = getFilesInPath(name + 'app.js');
     var otherJsFiles = getFilesInPath(name + '**/*.js');
-    return _.union(appJs, otherJsFiles);
+    var theFiles = _.union(appJs, otherJsFiles);
+    if (env !== 'test') {
+      _.remove(theFiles, function(file) {
+        return endsWith(file, 'Spec.js');
+      });
+    }
+    return theFiles;
   }
 
   function getModuleAndSubmodules(root, submodules) {
     var files = [];
     _.each(submodules, function(submod) {
-      files = _.union(files, getSection(root + submod + '/'))
+      files = _.union(files, getSection(root + submod + '/'));
     });
     files = _.union(files, getSection(root));
     return files;
+  }
+
+  function endsWith(str, ends){
+    if (ends === '') {
+      return true;
+    }
+    if (!str || !ends) {
+      return false;
+    }
+    str = String(str);
+    ends = String(ends);
+    return str.length >= ends.length && str.slice(str.length - ends.length) === ends;
   }
 
 };

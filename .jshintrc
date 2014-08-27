@@ -26,6 +26,12 @@
   "globals": {
     "angular": false,
     "PK": false,
-    "Faker": false
+    "Faker": false,
+    "describe": false,
+    "beforeEach": false,
+    "it": false,
+    "inject": false,
+    "module": false,
+    "chai": false
   }
 }

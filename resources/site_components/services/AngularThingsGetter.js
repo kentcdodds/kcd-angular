@@ -10,7 +10,7 @@ angular.module('kcd.site').factory('AngularThingsGetter', function(_) {
     hljs: 'http://highlightjs.org/',
     moment: 'http://momentjs.com/'
   };
-  var featured = ['kcd-recompile', 'kcd-remove-watchers', 'kcd-custom-validation', 'kcdDynamicFilter'];
+  var featured = ['kcd-recompile', 'kcd-remove-watchers', 'kcd-custom-validation', 'kcdDynamicFilter', 'kcd-dynamic-attr'];
 
   var thingMap = {
     filters: null
@@ -75,6 +75,7 @@ angular.module('kcd.site').factory('AngularThingsGetter', function(_) {
         examplePath: filePath + '-example.html',
         dependencies: type === 'constant' ? [] : getDependencies(definition),
         codePath: filePath + '.js',
+        specPath: filePath + 'Spec.js',
         libraryLink: libraryLinks[name],
         isFeatured: _.contains(featured, name)
       };

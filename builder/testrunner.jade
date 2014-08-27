@@ -1,0 +1,32 @@
+html(ng-app="kcd.site",lang="en")
+  head
+    title KCD Module tests
+    meta(name="title",content="KCD Module tests")
+    meta(name="description" content="Tests for KCD Modules")
+    meta(name="keywords" content="angularjs, angular, angular directives, angular services, angular filters")
+    meta(name="author" content="Kent C. Dodds")
+    meta(charset="UTF-8")
+    link(rel="stylesheet",href="resources/bower_components/mocha/mocha.css")
+    // load critical scripts
+    for script in topScripts
+      script(src="#{script}")
+
+  body
+    div#mocha
+      h1 kcd-module tests
+    div#messages
+    div#fixtures
+    script(src="resources/bower_components/mocha/mocha.js")
+    script(src="resources/bower_components/chai/chai.js")
+    script.
+      mocha.setup('bdd');
+      mocha.reporter('html');
+    // load other scripts
+    script(src="resources/bower_components/angular-mocks/angular-mocks.js")
+    for script in scripts
+      script(src="#{script}")
+    script.
+      // Only tests run in real browser, injected script run if options.run == true
+      if (navigator.userAgent.indexOf('PhantomJS') < 0) {
+        mocha.run();
+      }

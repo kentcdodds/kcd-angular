@@ -34,7 +34,8 @@
         },
         thingDocs: getFileStringGetter('docsPath', 'docs'),
         thingExample: getFileStringGetter('examplePath', 'example'),
-        thingCode: getFileStringGetter('codePath', 'code', 'libraryLink')
+        thingCode: getFileStringGetter('codePath', 'code', 'libraryLink'),
+        thingSpec: getFileStringGetter('specPath', 'spec', 'libraryLink')
       }
     });
 

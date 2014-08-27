@@ -3,4 +3,5 @@ angular.module('kcd.site').controller('ThingCtrl', function($scope, thing) {
   $scope.thing = thing;
   $scope.isLibrary = !!thing.libraryLink;
   $scope.hasExample = !!thing.example;
+  $scope.hasTests = !!thing.spec;
 });

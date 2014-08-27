@@ -24,4 +24,12 @@
     <h5>Link</h5>
     <a ng-href="{{::thing.libraryLink}}">Click here</a> to go to the {{::thing.name}} website.
   </div>
+
+  <hr ng-if="::hasTests"/>
+
+  <div ng-if="::hasTests">
+    <h5>Spec</h5>
+    <div ng-bind-html="::('```javascript\n' + thing.spec + '\n```') | kcdMdToHtml" kcd-highlight-code></div>
+  </div>
+
 </div>
