@@ -7,11 +7,9 @@ describe('kcd-dynamic-attr', function () {
 
   var element;
   var scope;
-  var $window;
 
-  beforeEach(inject(function ($rootScope, _$window_) {
+  beforeEach(inject(function ($rootScope) {
     scope = $rootScope.$new();
-    $window = _$window_;
   }));
 
   it('should evaluate the value of name and set name to the evaluated value', inject(function ($compile) {
