@@ -8,4 +8,5 @@
     }
   }
   addConstant('faker');
+  addConstant('mocha');
 })();

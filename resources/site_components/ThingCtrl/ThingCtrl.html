@@ -1,4 +1,4 @@
-<div>
+<div class="thing-view">
   <h4>{{::thing.name}} <small>{{::thing.type}}</small></h4>
   <div ng-if="::thing.dependencies.length">Dependencies: <span ng-bind-html="::thing.dependencies | linkifyDependencies"></span></div>
 
@@ -11,25 +11,34 @@
 
   <div ng-if="::hasExample">
     <h5>Interactive Example</h5>
-    <div kcd-thing-example="thing.example"></div>
+    <div kcd-thing-interactive="thing.example"></div>
   </div>
 
   <hr />
 
   <div ng-if="::!isLibrary">
     <h5>Code <kcd-clipboard-copy text="{{::thing.code}}"></kcd-clipboard-copy></h5>
-    <div ng-bind-html="::('```javascript\n' + thing.code + '\n```') | kcdMdToHtml" kcd-highlight-code></div>
+    <div id="thing-code" ng-bind-html="::('```javascript\n' + thing.code + '\n```') | kcdMdToHtml" kcd-highlight-code></div>
   </div>
   <div ng-if="::isLibrary">
     <h5>Link</h5>
     <a ng-href="{{::thing.libraryLink}}">Click here</a> to go to the {{::thing.name}} website.
   </div>
 
-  <hr ng-if="::hasTests"/>
-
   <div ng-if="::hasTests">
-    <h5>Spec</h5>
-    <div ng-bind-html="::('```javascript\n' + thing.spec + '\n```') | kcdMdToHtml" kcd-highlight-code></div>
+    <hr/>
+
+    <div>
+      <h5>Interactive Spec</h5>
+      <div kcd-thing-interactive="thing.specHtml" on-clear="testOnClear()"></div>
+    </div>
+
+    <hr/>
+
+    <div>
+      <h5>Spec Code</h5>
+      <div ng-bind-html="::('```javascript\n' + thing.spec + '\n```') | kcdMdToHtml" kcd-highlight-code></div>
+    </div>
   </div>
 
 </div>

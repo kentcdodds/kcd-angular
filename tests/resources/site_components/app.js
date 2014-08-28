@@ -35,7 +35,14 @@
         thingDocs: getFileStringGetter('docsPath', 'docs'),
         thingExample: getFileStringGetter('examplePath', 'example'),
         thingCode: getFileStringGetter('codePath', 'code', 'libraryLink'),
-        thingSpec: getFileStringGetter('specPath', 'spec', 'libraryLink')
+        thingSpec: getFileStringGetter('specPath', 'spec', 'libraryLink'),
+        thingSpecTestHtml: function(thing, thingSpec, MochaService) {
+          if (!thingSpec) {
+            return;
+          }
+          thing.specHtml = MochaService.getTestHtmlForSpec(thingSpec);
+          return thing.specHtml;
+        }
       }
     });
 
@@ -47,9 +54,15 @@
         if (thing[assignmentProp]) { // it's already been set
           return thing[assignmentProp];
         }
-        return $http.get(thing[pathProp]).then(function success(response) {
+        var path = thing[pathProp];
+        if (!path) {
+          return;
+        }
+        return $http.get(path).then(function success(response) {
           thing[assignmentProp] = response.data;
+          return thing[assignmentProp];
         }, function error(err) {
+          console.warn(err);
           return 'Error loading ' + assignmentProp;
         });
       };
