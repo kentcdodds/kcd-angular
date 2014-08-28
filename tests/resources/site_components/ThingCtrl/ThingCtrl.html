@@ -1,44 +1,72 @@
 <div class="thing-view">
-  <h4>{{::thing.name}} <small>{{::thing.type}}</small></h4>
+  <h2>{{::thing.name}} <small>{{::thing.type}}</small></h2>
   <div ng-if="::thing.dependencies.length">Dependencies: <span ng-bind-html="::thing.dependencies | linkifyDependencies"></span></div>
 
   <div>
-    <h5>Docs</h5>
+    <h3 id="docs" class="section-title">
+      <a ng-click="scrollTo('docs')" class="fa fa-link"></a>
+      Docs
+    </h3>
     <div ng-bind-html="::(thing.docs || '{{thing.name}} is not documented...') | kcdMdToHtml" kcd-highlight-code></div>
   </div>
 
-  <hr ng-if="::hasExample"/>
-
-  <div ng-if="::hasExample">
-    <h5>Interactive Example</h5>
-    <div kcd-thing-interactive="thing.example"></div>
-  </div>
-
-  <hr />
 
   <div ng-if="::!isLibrary">
-    <h5>Code <kcd-clipboard-copy text="{{::thing.code}}"></kcd-clipboard-copy></h5>
-    <div id="thing-code" ng-bind-html="::('```javascript\n' + thing.code + '\n```') | kcdMdToHtml" kcd-highlight-code></div>
+    <hr/>
+    <h3 id="example" class="section-title">
+      <a ng-click="scrollTo('example')" class="fa fa-link"></a>
+      Interactive Example
+    </h3>
+    <div ng-if="::hasExample" kcd-thing-interactive="thing.example"></div>
+    <div ng-if="::!hasExample">
+      {{thing.name}} has no example... <i class="fa fa-frown-o"></i>
+    </div>
   </div>
+
+
+  <div ng-if="::!isLibrary">
+    <hr />
+    <h3 id="code" class="section-title">
+      <a ng-click="scrollTo('code')" class="fa fa-link"></a>
+      Code <kcd-clipboard-copy text="{{::thing.code}}"></kcd-clipboard-copy>
+    </h3>
+    <div ng-bind-html="::('```javascript\n' + thing.code + '\n```') | kcdMdToHtml" kcd-highlight-code></div>
+  </div>
+
   <div ng-if="::isLibrary">
-    <h5>Link</h5>
+    <hr/>
+    <h3>Link</h3>
     <a ng-href="{{::thing.libraryLink}}">Click here</a> to go to the {{::thing.name}} website.
   </div>
+
 
   <div ng-if="::hasTests">
     <hr/>
 
     <div>
-      <h5>Interactive Spec</h5>
+      <h3 id="spec" class="section-title">
+        <a ng-click="scrollTo('spec')" class="fa fa-link"></a>
+        Interactive Spec
+      </h3>
       <div kcd-thing-interactive="thing.specHtml" on-clear="testOnClear()"></div>
     </div>
 
     <hr/>
 
     <div>
-      <h5>Spec Code</h5>
+      <h3 id="spec-code" class="section-title">
+        <a ng-click="scrollTo('spec-code')" class="fa fa-link"></a>
+        Spec Code
+      </h3>
       <div ng-bind-html="::('```javascript\n' + thing.spec + '\n```') | kcdMdToHtml" kcd-highlight-code></div>
     </div>
+  </div>
+  <div ng-if="::!hasTests && !isLibrary">
+    <h3 id="spec-code" class="section-title">
+      <a ng-click="scrollTo('spec-code')" class="fa fa-link"></a>
+      Spec
+    </h3>
+    {{thing.name}} has no tests... <i class="fa fa-frown-o"></i>
   </div>
 
 </div>

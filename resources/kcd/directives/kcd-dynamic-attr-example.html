@@ -22,7 +22,7 @@
   </style>
   <div class="example-html-wrapper">
     <div class="row">
-      <h3>Instructions</h3>
+      <h4>Instructions</h4>
       Play around with the form groups below, notice that the second has features that are not working with the first
       because the first is not using kcd-dynamic-attr. These broken features are:
       <ul>
@@ -31,7 +31,7 @@
       </ul>
     </div>
     <div class="row">
-      <h3>Not using kcd-dynamic-attr <small>(doesn't work)</small></h3>
+      <h4>Not using kcd-dynamic-attr <small>(doesn't work)</small></h4>
       <form ng-repeat="form in ::forms" name="{{'myForm' + $index}}" class="col-md-4">
         <strong class="title">Form {{::$index}} <small>Something's wrong...</small></strong>
         <div ng-repeat="item in ::form track by $index" class="form-group" ng-class="{{'{&quot;has-error&quot;: myForm' + $parent.$index + '[\'myInput' + $index + '\'].$invalid}'}}">
@@ -49,7 +49,7 @@
       </form>
     </div>
     <div class="row">
-      <h3>Using kcd-dynamic-attr <small>(works great)</small></h3>
+      <h4>Using kcd-dynamic-attr <small>(works great)</small></h4>
       <form ng-repeat="form in ::forms" kcd-dynamic-attr="name" name="'myForm' + $index" class="col-md-4">
         <strong class="title">Form {{::$index}} <small>Something's wrong...</small></strong>
         <div ng-repeat="item in ::form track by $index" class="form-group" kcd-dynamic-attr="ngClass" ng-class="'{&quot;has-error&quot;: myForm' + $parent.$index + '[\'myInput' + $index + '\'].$invalid}'">
