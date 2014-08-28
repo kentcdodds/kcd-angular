@@ -8,7 +8,7 @@
       <h3>Angular Things</h3>
       <div class="search-container">
         <i class="fa fa-search"></i>
-        <input type="search" class="form-control input-sm" placeholder="Search Angular Things" ng-model="thingSearch" ng-keydown="onSearchEntered($event)" autofocus>
+        <input type="search" class="form-control input-sm" placeholder="Search Angular Things" ng-model="thingSearch" ng-keydown="onSearchEntered($event)">
       </div>
       <div ng-repeat="group in ::angularThings" class="thing-group">
         <h4 class="group-label" popover="{{group.popover}}" popover-trigger="mouseenter" popover-placement="right">{{::group.name}}</h4>

@@ -47,16 +47,26 @@
 /* line 1 : /Users/kentcdodds/dev/kcd-angular/resources/site_components/ThingCtrl/ThingCtrl.styl */
 
 /* line 2 : /Users/kentcdodds/dev/kcd-angular/resources/site_components/ThingCtrl/ThingCtrl.styl */
-.thing-view pre{word-break:normal;word-wrap:normal;}
-/* line 5 : /Users/kentcdodds/dev/kcd-angular/resources/site_components/ThingCtrl/ThingCtrl.styl */
-.thing-view pre code{white-space:pre;word-wrap:normal}
-/* line 8 : /Users/kentcdodds/dev/kcd-angular/resources/site_components/ThingCtrl/ThingCtrl.styl */
-.thing-view #mocha{margin:0;}
-/* line 10 : /Users/kentcdodds/dev/kcd-angular/resources/site_components/ThingCtrl/ThingCtrl.styl */
-.thing-view #mocha ul{position:inherit;top:0;right:0;}
-/* line 14 : /Users/kentcdodds/dev/kcd-angular/resources/site_components/ThingCtrl/ThingCtrl.styl */
-.thing-view #mocha ul#mocha-stats .progress{float:left;height:40px;background-color:rgba(0,0,0,0);border-radius:50%}
+.thing-view .section-title{position:relative;padding-left:24px;margin-left:-24px;}
+/* line 6 : /Users/kentcdodds/dev/kcd-angular/resources/site_components/ThingCtrl/ThingCtrl.styl */
+
+/* line 7 : /Users/kentcdodds/dev/kcd-angular/resources/site_components/ThingCtrl/ThingCtrl.styl */
+.thing-view .section-title:hover .fa-link{display:inline}
+/* line 9 : /Users/kentcdodds/dev/kcd-angular/resources/site_components/ThingCtrl/ThingCtrl.styl */
+.thing-view .section-title .fa-link{display:none;color:#000;text-decoration:none;position:absolute;left:0;top:6px;font-size:20px;}
+/* line 17 : /Users/kentcdodds/dev/kcd-angular/resources/site_components/ThingCtrl/ThingCtrl.styl */
+.thing-view .section-title .fa-link:hover{color:#666}
 /* line 19 : /Users/kentcdodds/dev/kcd-angular/resources/site_components/ThingCtrl/ThingCtrl.styl */
+.thing-view pre{word-break:normal;word-wrap:normal;}
+/* line 22 : /Users/kentcdodds/dev/kcd-angular/resources/site_components/ThingCtrl/ThingCtrl.styl */
+.thing-view pre code{white-space:pre;word-wrap:normal}
+/* line 25 : /Users/kentcdodds/dev/kcd-angular/resources/site_components/ThingCtrl/ThingCtrl.styl */
+.thing-view #mocha{margin:0;}
+/* line 27 : /Users/kentcdodds/dev/kcd-angular/resources/site_components/ThingCtrl/ThingCtrl.styl */
+.thing-view #mocha ul{position:inherit;top:0;right:0;}
+/* line 31 : /Users/kentcdodds/dev/kcd-angular/resources/site_components/ThingCtrl/ThingCtrl.styl */
+.thing-view #mocha ul#mocha-stats .progress{float:left;height:40px;background-color:rgba(0,0,0,0);border-radius:50%}
+/* line 36 : /Users/kentcdodds/dev/kcd-angular/resources/site_components/ThingCtrl/ThingCtrl.styl */
 .thing-view #mocha .test a.replay{display:none}
 
 /* line 51 : /Users/kentcdodds/dev/kcd-angular/resources/site_components/directives/kcd-thing-interactive.styl */
