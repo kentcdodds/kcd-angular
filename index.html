@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="resources/bower_components/toastr/toastr.min.css"/>
     <link rel="stylesheet" href="resources/non_bower_components/highlight.js/github.css"/>
     <link rel="stylesheet" href="resources/bower_components/codemirror/lib/codemirror.css"/>
+    <link rel="stylesheet" href="resources/bower_components/mocha/mocha.css"/>
     <link rel="stylesheet" href="resources/site_components/styles/styles.css"/>
     <!-- load critical scripts-->
     <script src="resources/bower_components/jquery/dist/jquery.js"></script>
@@ -33,6 +34,10 @@
       <div class="container">Created with&nbsp;<i class="fa fa-heart"></i> by&nbsp;<a href="http://twitter.com/kentcdodds">Kent C. Dodds</a>. Hosted by&nbsp;<a href="http://github.com/kentcdodds/kcd-angular">GitHub</a></div>
     </div>
     <!-- load other scripts-->
+    <script src="resources/bower_components/mocha/mocha.js"></script>
+    <script src="resources/bower_components/chai/chai.js"></script>
+    <script src="resources/site_components/one-off/mocha-setup.js"></script>
+    <script src="resources/bower_components/angular-mocks/angular-mocks.js"></script>
     <script src="resources/bower_components/lodash/dist/lodash.js"></script>
     <script src="resources/bower_components/toastr/toastr.min.js"></script>
     <script src="resources/bower_components/marked/lib/marked.js"></script>
@@ -74,10 +79,11 @@
     <script src="resources/site_components/ThingCtrl/ThingCtrl.js"></script>
     <script src="resources/site_components/constants/app.js"></script>
     <script src="resources/site_components/directives/kcd-clipboard-copy.js"></script>
-    <script src="resources/site_components/directives/kcd-thing-example.js"></script>
+    <script src="resources/site_components/directives/kcd-thing-interactive.js"></script>
     <script src="resources/site_components/directives/kcd-watch-count.js"></script>
     <script src="resources/site_components/filters/linkifyDependencies.js"></script>
     <script src="resources/site_components/one-off/long-errors.js"></script>
     <script src="resources/site_components/services/AngularThingsGetter.js"></script>
+    <script src="resources/site_components/services/MochaService.js"></script>
   </body>
 </html>

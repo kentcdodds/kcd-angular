@@ -19,11 +19,17 @@ module.exports = function(env) {
     bc + 'toastr/toastr.min.css',
     nbc + 'highlight.js/github.css',
     bc + 'codemirror/lib/codemirror.css',
+    bc + 'mocha/mocha.css',
     sc + 'styles/styles.css'
   ]);
 
   var scripts = _.union(
     [
+      // test related stuff
+      bc + 'mocha/mocha.js',
+      bc + 'chai/chai.js',
+      sc + 'one-off/mocha-setup.js',
+      bc + 'angular-mocks/angular-mocks.js',
       // non angular related stuff
       bc + 'lodash/dist/lodash.js',
       bc + 'toastr/toastr.min.js',

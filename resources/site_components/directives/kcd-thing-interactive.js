@@ -1,10 +1,10 @@
-angular.module('kcd.site').directive('kcdThingExample', function($compile) {
+angular.module('kcd.site').directive('kcdThingInteractive', function($compile) {
   'use strict';
 
   return {
     template: function() {
       return [
-        '<div class="kcd-thing-example-wrapper">',
+        '<div class="kcd-thing-interactive-wrapper">',
           '<div class="controls">',
             '<a ng-click="reset()" tooltip="Reset to original demo">Reset</a>',
             ' | ',
@@ -13,18 +13,20 @@ angular.module('kcd.site').directive('kcdThingExample', function($compile) {
           '<alert type="danger" close="alert=null" ng-if="alert">',
             '<strong>Script Error:</strong><br />{{alert.message}}<br /><small>see console</small>',
           '</alert>',
-          '<div ng-hide="edit" class="example-area"></div>',
+          '<div ng-hide="edit" class="interactive-area"></div>',
           '<ui-codemirror ui-codemirror-opts="::{lineNumbers: true, mode: \'htmlmixed\'}" ng-show="edit" ng-model="html"></ui-codemirror>',
         '</div>'
       ].join(' ');
     },
     scope: {
-      example: '=kcdThingExample'
+      interactive: '=kcdThingInteractive',
+      onClear: '&?'
     },
     link: function(scope, el) {
+      scope.onClear = scope.onClear || angular.noop;
       var childScope = null;
       var childEl = null;
-      var exampleArea = el.find('.example-area');
+      var interactiveArea = el.find('.interactive-area');
 
       scope.reset = reset;
       scope.edit = false;
@@ -44,11 +46,12 @@ angular.module('kcd.site').directive('kcdThingExample', function($compile) {
       }
 
       function reset() {
-        scope.html = scope.example;
-        attachHtml(scope.example);
+        scope.html = scope.interactive;
+        attachHtml(scope.interactive);
       }
 
       function clear() {
+        scope.onClear();
         // clear the current scope and element
         if (childScope) {
           childScope.$destroy();
@@ -74,7 +77,7 @@ angular.module('kcd.site').directive('kcdThingExample', function($compile) {
         var scripts = childEl.find('script').remove();
         $compile(childEl)(childScope);
 
-        exampleArea.append(childEl);
+        interactiveArea.append(childEl);
         angular.forEach(scripts, function(script) {
           evalScript(script.textContent, childScope);
         });

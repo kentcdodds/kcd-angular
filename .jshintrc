@@ -27,6 +27,9 @@
     "angular": false,
     "PK": false,
     "Faker": false,
+
+    // Tests
+    "mocha": false,
     "describe": false,
     "beforeEach": false,
     "it": false,

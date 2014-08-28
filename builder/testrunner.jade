@@ -14,15 +14,8 @@ html(ng-app="kcd.site",lang="en")
   body
     div#mocha
       h1 kcd-module tests
-    div#messages
-    div#fixtures
-    script(src="resources/bower_components/mocha/mocha.js")
-    script(src="resources/bower_components/chai/chai.js")
-    script.
-      mocha.setup('bdd');
-      mocha.reporter('html');
+
     // load other scripts
-    script(src="resources/bower_components/angular-mocks/angular-mocks.js")
     for script in scripts
       script(src="#{script}")
     script.
