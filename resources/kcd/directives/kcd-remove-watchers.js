@@ -26,5 +26,6 @@ angular.module('kcd.directives').directive('kcdRemoveWatchers', function($parse,
     _.remove(scope.$$watchers, function(watcher) {
       return !_.contains(saveExpressions, watcher.exp);
     });
+    scope.$$watchers = scope.$$watchers || [];
   }
 });
