@@ -19,6 +19,10 @@
   "ignore": [
     "*",
     "!resources/kcd",
+    "!resources/kcd/constants/*",
+    "!resources/kcd/directives/*",
+    "!resources/kcd/filters/*",
+    "!resources/kcd/services/*",
     "!README.md",
     "!LICENSE"
   ],
