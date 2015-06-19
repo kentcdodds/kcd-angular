@@ -18,11 +18,7 @@
   "license": "MIT",
   "ignore": [
     "*",
-    "!resources/kcd",
-    "!resources/kcd/constants/*",
-    "!resources/kcd/directives/*",
-    "!resources/kcd/filters/*",
-    "!resources/kcd/services/*",
+    "!resources/kcd/**/*",
     "!README.md",
     "!LICENSE"
   ],
