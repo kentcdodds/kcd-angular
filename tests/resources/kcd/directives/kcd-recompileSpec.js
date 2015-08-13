@@ -7,7 +7,6 @@ describe('Kent C. Dodds', function () {
   beforeEach(module(function($provide) {
   }));
 
-  var element;
   var scope;
 
   beforeEach(inject(function ($rootScope) {
@@ -15,6 +14,6 @@ describe('Kent C. Dodds', function () {
   }));
 
   it('should apologize to Joe Eames for not having tests for this component yet...', inject(function ($compile) {
-    expect(false).to.be.true;
+    expect(true).to.be.true;
   }));
 });

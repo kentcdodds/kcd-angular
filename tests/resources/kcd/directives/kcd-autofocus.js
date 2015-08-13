@@ -5,7 +5,7 @@ angular.module('kcd.directives').directive('kcdAutofocus', function($timeout, $d
       var previousEl = null;
       var el = element[0];
       var doc = $document[0];
-      attrs.$observe('pkAutofocus', function(value) {
+      attrs.$observe('kcdAutofocus', function(value) {
         if(value && value !== 'false') {
           $timeout(function() {
             previousEl = doc.activeElement;
