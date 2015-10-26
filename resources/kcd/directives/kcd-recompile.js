@@ -37,7 +37,7 @@ angular.module('kcd.directives').directive('kcdRecompile', ['$parse', function($
         }
 
         recompile();
-      });
+      }, typeof $parse(attrs.kcdRecompile)(scope) === 'object');
     }
   };
 }]);
