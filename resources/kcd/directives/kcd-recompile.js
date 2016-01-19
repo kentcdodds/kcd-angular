@@ -9,7 +9,7 @@ angular.module('kcd.directives').directive('kcdRecompile', ['$parse', function($
       compile();
 
       function compile() {
-        transclude(scope, function(clone, clonedScope) {
+        transclude(scope.$new(false, scope), function(clone, clonedScope) {
           // transclude creates a clone containing all children elements;
           // as we assign the current scope as first parameter, the clonedScope is the same
           previousElements = clone;
