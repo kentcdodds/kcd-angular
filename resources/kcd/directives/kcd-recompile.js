@@ -4,14 +4,16 @@ angular.module('kcd.directives').directive('kcdRecompile', ['$parse', function($
     transclude: true,
     link: function link(scope, $el, attrs, ctrls, transclude) {
       var previousElements;
+      var previousScope;
 
       compile();
 
       function compile() {
-        transclude(scope, function(clone, clonedScope) {
+        transclude(scope.$new(false, scope), function(clone, clonedScope) {
           // transclude creates a clone containing all children elements;
           // as we assign the current scope as first parameter, the clonedScope is the same
           previousElements = clone;
+          previousScope = clonedScope;
           $el.append(clone);
         });
       }
@@ -21,6 +23,9 @@ angular.module('kcd.directives').directive('kcdRecompile', ['$parse', function($
           previousElements.remove();
           previousElements = null;
           $el.empty();
+        }
+        if (previousScope) {
+          previousScope.$destroy();
         }
 
         compile();
